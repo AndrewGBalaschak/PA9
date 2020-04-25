@@ -1,2 +1,4 @@
 ﻿  main.cpp
+C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(25,36): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(25,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
   PA9.vcxproj -> C:\Users\andre\source\repos\122\PA9\Debug\PA9.exe
