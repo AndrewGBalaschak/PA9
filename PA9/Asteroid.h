@@ -7,14 +7,6 @@ using namespace std;
 
 class Asteroid : MovingObject {
 private:
-	struct Position {
-		int x;
-		int y;
-	};
-	struct Velocity {
-		int x;
-		int y;
-	};
 
 public:
 
