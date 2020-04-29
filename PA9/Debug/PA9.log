@@ -6,4 +6,5 @@ C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(29,38): warning C4244: 'argumen
 C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(51,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(51,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
 C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(52,62): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  LINK : C:\Users\andre\source\repos\122\PA9\Debug\PA9.exe not found or not built by the last incremental link; performing full link
   PA9.vcxproj -> C:\Users\andre\source\repos\122\PA9\Debug\PA9.exe

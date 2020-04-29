@@ -39,25 +39,11 @@ public:
 		s.x = 0;
 		s.y = 1;
 	}
-
+	
 	//calculates what proportion of thrust should go into x and y components
 	void calculateScalar() {
-		if (rotation < PI/2) { //positive x & positive y
-			s.x = cos(rotation);
-			s.y = sin(rotation);
-		}
-		else if (rotation < PI) { //negative x & positive y
-			s.x = -1 * cos(PI - rotation);
-			s.y = sin(PI - rotation);
-		}
-		else if (rotation < (3 * PI / 2)) { //negative x & negative y
-			s.x = -1 * cos(rotation - PI);
-			s.y = -1 * sin(rotation - PI);
-		}
-		else { //positive x & negative y
-			s.x = cos((2 * PI) - rotation);
-			s.y = -1 * sin((2 * PI) - rotation);
-		}
+		s.x = cos(rotation);
+		s.y = sin(rotation);
 	}
 
 	//rotates object left, affected by rotateSpeed
