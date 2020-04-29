@@ -1,10 +1,1 @@
-﻿  main.cpp
-C:\Users\andre\source\repos\122\PA9\PA9\MovingObject.h(29,11): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-C:\Users\andre\source\repos\122\PA9\PA9\MovingObject.h(34,11): warning C4244: 'return': conversion from 'double' to 'int', possible loss of data
-C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(32,53): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(32,38): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(59,54): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(59,39): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\andre\source\repos\122\PA9\PA9\main.cpp(60,62): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-  LINK : C:\Users\andre\source\repos\122\PA9\Debug\PA9.exe not found or not built by the last incremental link; performing full link
-LINK : fatal error LNK1104: cannot open file 'sfml-graphics-d.lib'
+﻿LINK : fatal error LNK1104: cannot open file 'sfml-graphics-d.lib'

@@ -286,3 +286,7 @@ examples/*/*.xml
 *.suo
 *.csproj.user
 *.VC.db
+.vs/PA9/v16/ipch/AutoPCH/dabe92124a1d2c3b/MAIN.ipch
+.vs/PA9/v16/.suo
+PA9/PA9.vcxproj
+PA9/Debug/PA9.log
