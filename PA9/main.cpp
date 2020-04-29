@@ -1,5 +1,5 @@
 /*
-Programmer: Andrew Balaschak, Svetoslav Dimitrov, Seri Nakamura, Garett 
+Programmer: Andrew Balaschak, Svetoslav Dimitrov, Seri Nakamura, Garett
 Class: CPTS 122, Spring 2020; Lab Section 14
 Programming Assignment:
 Date:
@@ -12,6 +12,9 @@ using namespace std;
 
 int main() {
 	int width = 800, height = 600;
+
+	sf::Clock clock;
+	double timer = 0, delay = 0.05;
 
 	//create window
 	sf::RenderWindow window(sf::VideoMode(width, height), "Azteroidz");
@@ -31,20 +34,25 @@ int main() {
 
 	//game loop
 	while (window.isOpen()) {
+		double time = clock.getElapsedTime().asSeconds();
+		clock.restart();
+		timer += time;
+
 		//process all the events
 		while (window.pollEvent(event)) {
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player.accelerateForward();
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
-
 			//if the window is closed, close it
 			if (event.type == sf::Event::Closed) {
 				window.close();
 			}
 		}
 
+		if (timer >= delay) { // delay needs to be tested
+			timer = 0;
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player.accelerateForward();
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
+		}
 
 		//update player coordinates
 		player.updatePosition();
