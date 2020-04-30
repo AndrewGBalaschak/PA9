@@ -31,26 +31,26 @@ public:
 	}
 
 	bool Timer::countdown() {
-	time_t current;
-	time(&current);
-	if (count == timerNum) {
-		cout << "TIME IS UP!";
-		return false;
-	}
-	else if (current == start + count + 1) {
-		if (seconds == 0) {
-			seconds = 60;
-			minutes--;
+		time_t current;
+		time(&current);
+		if (count == timerNum) {
+			cout << "TIME IS UP!";
+			return false;
 		}
-		seconds--;
-		count++;
-		return true;
+		else if (current == start + count + 1) {
+			if (seconds == 0) {
+				seconds = 60;
+				minutes--;
+			}
+			seconds--;
+			count++;
+			return true;
+		}
+		int getMin() {
+			return minutes;
+		}
+		int getSec() {
+			return seconds;
+		}
 	}
-	int getMin() {
-		return minutes;
-	}
-	int getSec() {
-		return seconds;
-	}
-
 };
