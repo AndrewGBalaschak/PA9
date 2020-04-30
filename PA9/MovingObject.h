@@ -44,19 +44,42 @@ public:
 		p.x += v.x;
 		p.y -= v.y;
 
-		if (p.x < 0) {
-			p.x = 800;
+		if (v.x == 0) {
+			if (p.y < 0) {
+				p.y = 600;
+			}
+			else if (p.y > 600) {
+				p.y = 0;
+			}
 		}
-		else if (p.x > 800) {
-			p.x = 0;
+		else if (v.y == 0) {
+			if (p.x < 0) {
+				p.x = 800;
+			}
+			else if (p.x > 800) {
+				p.x = 0;
+			}
+		}
+		else if (p.x < 0 || p.x > 800) {
+			p.y = 600 - p.y;
+			if (p.x < 0) {
+				p.x = 800;
+			}
+			else {
+				p.x = 0;
+			}
 		}
 
-		if (p.y < 0) {
-			p.y = 600;
+		else if (p.y < 0 || p.y > 600) {
+			p.x = 800 - p.x;
+			if (p.y < 0) {
+				p.y = 600;
+			}
+			else {
+				p.y = 0;
+			}
 		}
-		else if (p.y > 600) {
-			p.y = 0;
-		}
+		
 	}
 
 };
