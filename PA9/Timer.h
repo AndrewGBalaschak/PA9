@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <ctime>
-
 using namespace std;
 
 class Timer { //timer must be called at beginning of game start
@@ -19,7 +18,7 @@ protected:
 	sf::Font font;
 
 public:
-	Timer() { //default 3 minutes for multi player
+	Timer() { //default 3 minutes
 		minutes = 3;
 		seconds = 0;
 		count = 0;
@@ -43,15 +42,18 @@ public:
 		zero->setCharacterSize(30);
 		setTimerNum(3, 0);
 	}
+
 	Timer(int m, int s) {
 		minutes = m;
 		seconds = s;
 		setTimerNum(m, s);
 	}
+
 	void setStart() {
 		time(&start);
 		timerStart = true;
 	}
+
 	void setTimerNum(int m, int s) {
 		timerNum = (m * 60) + s;
 	}
@@ -74,19 +76,32 @@ public:
 		}
 		update();
 	}
+
+	bool isTimeOut() {
+		bool status = false;
+		if (minutes == 0 && seconds == 0) {
+			status = true;
+		}
+		return status;
+	}
+
 	int getMin() {
 		return minutes;
 	}
+
 	int getSec() {
 		return seconds;
 	}
+
 	bool getStart() {
 		return timerStart;
 	}
+
 	void update() {
 		min->setString(to_string(minutes));
 		sec->setString(to_string(seconds));
 	}
+
 	void drawTimer(sf::RenderWindow* win) {
 		if (seconds < 10) {
 			win->draw(*zero);
@@ -100,6 +115,4 @@ public:
 		win->draw(*sec);
 	}
 };
-
-
-#endif // !TIMER_H
+#endif
