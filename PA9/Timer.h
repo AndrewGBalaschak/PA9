@@ -20,7 +20,8 @@ public:
 		minutes = 3;
 		seconds = 0;
 		count = 0;
-		timerStart = false;
+		timerStart = true;
+		time(&start);
 
 		if (!font.loadFromFile("Tuffy.otf")) cout << "ERROR";
 
