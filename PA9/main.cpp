@@ -21,8 +21,6 @@ int main() {
 	bool timerStart = false;
 	time_t start;
 
-	Timer T;
-
 	//create window
 	sf::RenderWindow window(sf::VideoMode(width, height), "Azteroidz");
 	window.setFramerateLimit(50);
@@ -79,10 +77,13 @@ int main() {
 		player.updateSprite();
 		projectile.updateLocation();
 		projectile.updateSprite();
+		stats.updateStats(&player);
 
+		
 		//Render
 		window.clear();
 		T.drawTimer(&window);
+		stats.drawStats(&window);
 		window.draw(player.getSprite());
 		projectile.drawBullet(&window);
 		window.display();

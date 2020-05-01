@@ -11,10 +11,6 @@ const int height = 600;
 #include "Player.h"
 #include "Timer.h"
 #include "Projectile.h"
-<<<<<<< HEAD
 #include "Score.h"
 #include "Stats.h"
-=======
-
->>>>>>> parent of 5e25893... Merge branch 'master' of https://github.com/AvulsionMusic/PA9
 #endif

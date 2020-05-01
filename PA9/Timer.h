@@ -1,3 +1,6 @@
+#ifndef TIMER_H
+#define TIMER_H
+
 #include <iostream>
 #include <ctime>
 
@@ -97,3 +100,6 @@ public:
 		win->draw(*sec);
 	}
 };
+
+
+#endif // !TIMER_H
