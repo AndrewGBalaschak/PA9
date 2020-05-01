@@ -5,14 +5,14 @@ using namespace std;
 
 class Timer { //timer must be called at beginning of game start
 protected:
-	int minutes, seconds;
+	int minutes;
+	int seconds;
 	int timerNum;
 	int count;
-	int width = 800, height = 600;
 	time_t start;
 
 	bool timerStart;
-	sf::Text *min, *colon, *sec, *zero;
+	sf::Text* min, * colon, * sec, * zero;
 	sf::Font font;
 
 public:
@@ -37,7 +37,6 @@ public:
 		sec->setCharacterSize(30);
 		zero->setPosition(width - 45, 7);
 		zero->setCharacterSize(30);
-
 		setTimerNum(3, 0);
 	}
 	Timer(int m, int s) {
@@ -59,7 +58,8 @@ public:
 		if (count == timerNum) {
 			cout << "TIME IS UP!";
 			timerStart = false;
-		} else if (current == start + count + 1) {
+		}
+		else if (current == start + count + 1) {
 			if (seconds == 0) {
 				seconds = 60;
 				minutes--;
@@ -70,7 +70,6 @@ public:
 		}
 		update();
 	}
-
 	int getMin() {
 		return minutes;
 	}
@@ -83,19 +82,17 @@ public:
 	void update() {
 		min->setString(to_string(minutes));
 		sec->setString(to_string(seconds));
-
 	}
-	
-	void drawTimer(sf::RenderWindow *win) {
+	void drawTimer(sf::RenderWindow* win) {
 		if (seconds < 10) {
 			win->draw(*zero);
 			sec->setPosition(width - 28, 7);
-		} else {
-			sec->setPosition(width -45, 7);
+		}
+		else {
+			sec->setPosition(width - 45, 7);
 		}
 		win->draw(*min);
 		win->draw(*colon);
 		win->draw(*sec);
 	}
-
 };

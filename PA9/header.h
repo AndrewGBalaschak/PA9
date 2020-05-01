@@ -1,6 +1,9 @@
 #ifndef HEADER_H
 #define HEADER_H
 
+const int width = 800;
+const int height = 600;
+
 #include <SFML/Graphics.hpp>
 #include <ctime>
 #include "MovingObject.h"

@@ -21,23 +21,29 @@ private:
 		double y; //proportion of acceleration in y direaction (-1 to 1)
 	};
 	Scalar s;
+	sf::CircleShape* playerSprite;
 
 public:
 
-	Player() {
+	Player(int x, int y) {
 		score = 0;
 		fuel = 500;
 		fuelConsumptionRate = 5;
-		moveSpeed = .25;
+		moveSpeed = .1;
 		rotateSpeed = .05;
 		maxVelocity = 5;
 		rotation = PI / 2;
-		p.x = 400;
-		p.y = 300;
+		p.x = x;
+		p.y = y;
 		v.x = 0;
 		v.y = 0;
 		s.x = 0;
 		s.y = 1;
+		radius = 20;
+		playerSprite = new sf::CircleShape(radius, 3);
+		playerSprite->setFillColor(sf::Color(255, 255, 255));
+		playerSprite->setPosition(p.x, p.y);
+		playerSprite->setOrigin(radius, radius);
 	}
 	
 	//calculates what proportion of thrust should go into x and y components
@@ -107,7 +113,13 @@ public:
 		}
 		fuel -= fuelConsumptionRate;
 	}
-
-
+	void updateSprite() {
+		updatePosition();
+		playerSprite->setPosition(p.x, p.y);
+		playerSprite->setRotation(360 - getRotationDegrees() - 30);
+	}
+	sf::CircleShape getSprite() {
+		return *playerSprite;
+	}
 };
 #endif;
