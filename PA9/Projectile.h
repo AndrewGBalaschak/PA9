@@ -68,7 +68,7 @@ public:
 		}
 	}
 
-	void collideResults(MovingObject &collided) {
+	void collideResults() {
 		// do something
 	}
 };

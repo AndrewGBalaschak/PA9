@@ -95,7 +95,7 @@ public:
 			return false;
 	}
 
-	virtual void collideResults(MovingObject &) = 0;
+	virtual void collideResults() = 0;
 
 };
 
@@ -103,8 +103,8 @@ void checkForCollisions(vector<MovingObject> objs) {
 	for (int i = 0; i < objs.size()-1; i++) {
 		for (int j = i+1; j < objs.size(); j++) {
 			if (objs[i].collides(objs[j])) {
-				objs[i].collideResults(objs[j]);
-				objs[j].collideResults(objs[i]);
+				objs[i].collideResults();
+				objs[j].collideResults();
 			}
 		}
 	}

@@ -28,10 +28,11 @@ int main() {
 	//event handler
 	sf::Event event;
 
-	//player object
-	Player player(width/2,height/2);
-	//projectile object
-	Projectile projectile(width/2,height/2);
+	//objects list
+	vector<MovingObject *> objs;
+	Player player(width/2, height/2);
+	objs.push_back(&player);
+
 	//timer object
 	Timer T;
 	//stats object
@@ -70,7 +71,8 @@ int main() {
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
 
 		//shooting
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) 
+			projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
 
 		//update player coordinates
 		player.updatePosition();

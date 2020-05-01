@@ -144,7 +144,7 @@ public:
 		return *playerSprite;
 	}
 
-	void collideResults(MovingObject &collided) {
+	void collideResults() {
 		// do something
 	}
 };
