@@ -13,13 +13,15 @@ using namespace std;
 int main() {
 	int width = 800, height = 600;
 
+	Score score;
+	score.readScores();
+
 	sf::Clock clock;
 	double timer = 0, delay = 0.05;
 	int minute = 0, second = 0;
 	int score = 0; //placeholder integer until we have score class
 
 	bool timerStart = false;
-
 	time_t start;
 
 	//create window
@@ -53,7 +55,6 @@ int main() {
 	//game loop
 	while (window.isOpen()) {
 
-		//process all the events
 		while (window.pollEvent(event)) {
 			//if the window is closed, close it
 			if (event.type == sf::Event::Closed) {
@@ -65,10 +66,13 @@ int main() {
 			T.countdown();
 		}
 
+		//movement
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player.accelerateForward();
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
+
+		//shooting
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
 
 		//update player coordinates
