@@ -5,10 +5,10 @@ using namespace std;
 
 class Timer { //timer must be called at beginning of game start
 protected:
-	int minutes;
-	int seconds;
+	int minutes, seconds;
 	int timerNum;
 	int count;
+	int width = 800, height = 600;
 	time_t start;
 
 	bool timerStart;

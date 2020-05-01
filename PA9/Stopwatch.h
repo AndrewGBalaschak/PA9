@@ -1,6 +1,6 @@
 #include "Timer.h"
 
-class Stopwatch :public Timer {
+class Stopwatch : public Timer {
 private:
 	time_t prevRevival;
 
