@@ -63,7 +63,6 @@ int main() {
 			T.countdown();
 		}
 
-		//when the timer still has time left
 		if (!T.isTimeOut()) {
 			//movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
@@ -72,7 +71,7 @@ int main() {
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
 
 			//shooting
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) projectile.setLocation(player.getX(), player.getY(), player.getVelX(), player.getVelY(), player.getRotation());
 
 			//update player coordinates
 			player.updatePosition();
@@ -82,7 +81,7 @@ int main() {
 			stats.updateStats(&player);
 
 
-			//render
+			//Render
 			window.clear();
 			T.drawTimer(&window);
 			stats.drawStats(&window);
@@ -98,5 +97,6 @@ int main() {
 			window.display();
 		}
 	}
+
 	return 0;
 }
