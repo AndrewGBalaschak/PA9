@@ -143,5 +143,9 @@ public:
 	sf::Sprite getSprite() {
 		return *playerSprite;
 	}
+
+	void collideResults(MovingObject &collided) {
+		// do something
+	}
 };
 #endif;
