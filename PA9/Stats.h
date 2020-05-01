@@ -17,13 +17,13 @@ public:
 		fuelText = new sf::Text("Fuel: ", font);
 		scoreText = new sf::Text("Score: ", font);
 
-		fuelText->setPosition(width - 80, 20);
+		fuelText->setPosition(width - 80, 50);
 		fuelText->setCharacterSize(20);
-		scoreText->setPosition(width - 80, 40);
+		scoreText->setPosition(width - 80, 70);
 		scoreText->setCharacterSize(20);
-		fuelNum->setPosition(width - 30, 20);
+		fuelNum->setPosition(width - 30, 50);
 		fuelNum->setCharacterSize(20);
-		scoreNum->setPosition(width - 30, 40);
+		scoreNum->setPosition(width - 30, 70);
 		scoreNum->setCharacterSize(20);
 	}
 	void updateStats(Player *p) {
