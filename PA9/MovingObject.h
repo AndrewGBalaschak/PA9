@@ -21,7 +21,8 @@ protected:
 	Position p;
 	Velocity v;
 	double rotation; //angle the object is facing in radians
-
+	double radius;
+	
 public:
 
 	//returns object X coordinate
@@ -73,7 +74,6 @@ public:
 				p.x = 0;
 			}
 		}
-
 		else if (p.y < 0 || p.y > 600) {
 			p.x = 800 - p.x;
 			if (p.y < 0) {
@@ -83,8 +83,13 @@ public:
 				p.y = 0;
 			}
 		}
-		
 	}
-
+	bool collides(MovingObject &obj) {
+		double distance = pow(pow(p.x + obj.p.x, 2) + pow(p.y + obj.p.y, 2), 0.5);
+		if (distance < radius + obj.radius)
+			return true;
+		else
+			return false;
+	}
 };
 #endif;
