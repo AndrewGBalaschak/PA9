@@ -16,8 +16,6 @@ int main() {
 	Score score;
 	score.readScores();
 
-	sf::Clock clock;
-	double timer = 0, delay = 0.05;
 	int minute = 0, second = 0;
 	int score = 0; //placeholder integer until we have score class
 
@@ -34,7 +32,7 @@ int main() {
 	//player object
 	Player player(width/2,height/2);
 	//projectile object
-	Projectile projectile;
+	Projectile projectile(width/2,height/2);
 	//timer object
 	Timer T;
 	//stats object
