@@ -11,5 +11,6 @@ const int height = 600;
 #include "Player.h"
 #include "Timer.h"
 #include "Projectile.h"
+#include "Score.h"
 
 #endif

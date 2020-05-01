@@ -296,3 +296,6 @@ PA9/Debug/PA9.log
 *.lastbuildstate
 *.vcxproj
 *.log
+.vs/PA9/v16/Browse.VC.db
+.vs/PA9/v16/ipch/AutoPCH/dabe92124a1d2c3b/MAIN.ipch
+.vs/PA9/v16/.suo
