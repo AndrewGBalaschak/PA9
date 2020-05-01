@@ -40,7 +40,7 @@ public:
 		v.y = 0;
 		s.x = 0;
 		s.y = 1;
-		radius = 20;
+		radius = 16;
 		//loading the image
 		playerTexture = new sf::Texture();
 		playerTexture->loadFromFile("Player.png");
@@ -132,6 +132,10 @@ public:
 
 	sf::Sprite getSprite() {
 		return *playerSprite;
+	}
+
+	void collideResults() {
+		// finish after
 	}
 };
 #endif;

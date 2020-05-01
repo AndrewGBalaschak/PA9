@@ -151,6 +151,7 @@
     <ClInclude Include="header.h" />
     <ClInclude Include="MovingObject.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Stopwatch.h" />
     <ClInclude Include="Timer.h" />
   </ItemGroup>

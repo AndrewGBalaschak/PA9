@@ -71,8 +71,8 @@ int main() {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player.accelerateForward();
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
-			bullet.setPosition((projectile.getX() - 5), (projectile.getY() + 5));
-			projectile.setLocation((player.getX() - 5), (player.getY() + 5), player.getRotation());
+			bullet.setPosition((projectile.getX()), (projectile.getY()));
+			projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
 		}
 
 		//update player coordinates

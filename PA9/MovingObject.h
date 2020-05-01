@@ -95,5 +95,19 @@ public:
 			return false;
 	}
 
+	virtual void collideResults() = 0;
+
 };
+
+void checkForCollisions(vector<MovingObject> objs) {
+	for (int i = 0; i < objs.size(); i++) {
+		for (int j = i+1; j < objs.size(); j++) {
+			if (objs[i].collides(objs[j])) {
+				objs[i].collideResults();
+				objs[j].collideResults();
+			}
+		}
+	}
+}
+
 #endif;
