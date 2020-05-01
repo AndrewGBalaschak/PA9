@@ -28,9 +28,9 @@ public:
 		score = 0;
 		fuel = 500;
 		fuelConsumptionRate = 5;
-		moveSpeed = .01;
-		rotateSpeed = .1;
-		maxVelocity = .05;
+		moveSpeed = .25;
+		rotateSpeed = .05;
+		maxVelocity = 5;
 		rotation = PI / 2;
 		p.x = 400;
 		p.y = 300;
