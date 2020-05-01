@@ -1,3 +1,6 @@
+#ifndef TIMER_H
+#define TIMER_H
+
 #include <iostream>
 #include <ctime>
 
@@ -20,7 +23,8 @@ public:
 		minutes = 3;
 		seconds = 0;
 		count = 0;
-		timerStart = false;
+		timerStart = true;
+		time(&start);
 
 		if (!font.loadFromFile("Tuffy.otf")) cout << "ERROR";
 
@@ -96,3 +100,6 @@ public:
 		win->draw(*sec);
 	}
 };
+
+
+#endif // !TIMER_H

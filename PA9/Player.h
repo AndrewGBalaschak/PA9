@@ -9,7 +9,7 @@
 using namespace std;
 
 class Player : public MovingObject {
-private:
+protected:
 	int score;
 	int fuel;
 	int fuelConsumptionRate; //debug
@@ -23,9 +23,11 @@ private:
 	Scalar s;
 	sf::Sprite* playerSprite;
 	sf::Texture* playerTexture;
-
 public:
-
+	Player() {
+		score = 0;
+		fuel = 500;
+	}
 	Player(int x, int y) {
 		score = 0;
 		fuel = 500;
@@ -33,7 +35,7 @@ public:
 		moveSpeed = .1;
 		rotateSpeed = .05;
 		maxVelocity = 5;
-		rotation = PI / 2; //player is facing straight up
+		rotation = PI / 2;//player is facing straight
 		p.x = x;
 		p.y = y;
 		v.x = 0;
@@ -41,19 +43,29 @@ public:
 		s.x = 0;
 		s.y = 1;
 		radius = 20;
-		//loading the image
+		//loading image
 		playerTexture = new sf::Texture();
 		playerTexture->loadFromFile("Player.png");
 		playerSprite = new sf::Sprite;
 		playerSprite->setTexture(*playerTexture);
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setOrigin(16, 16);
-
-		/*playerSprite = new sf::CircleShape(radius, 3);
+		/*
+		playerSprite = new sf::CircleShape(radius, 3);
 		playerSprite->setFillColor(sf::Color(255, 255, 255));
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setOrigin(radius, radius);
 		*/
+	}
+
+	//return fuel for stats
+	int getFuel() {
+		return fuel;
+	}
+
+	//return score for stats
+	int getScore() {
+		return score;
 	}
 	
 	//calculates what proportion of thrust should go into x and y components
@@ -123,13 +135,11 @@ public:
 		}
 		fuel -= fuelConsumptionRate;
 	}
-
 	void updateSprite() {
 		updatePosition();
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setRotation(90 - getRotationDegrees());
 	}
-
 	sf::Sprite getSprite() {
 		return *playerSprite;
 	}

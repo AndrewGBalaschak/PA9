@@ -19,9 +19,11 @@ int main() {
 	sf::Clock clock;
 	double timer = 0, delay = 0.05;
 	int minute = 0, second = 0;
+	int score = 0; //placeholder integer until we have score class
 
 	bool timerStart = false;
 	time_t start;
+
 	Timer T;
 
 	//create window
@@ -33,8 +35,12 @@ int main() {
 
 	//player object
 	Player player(width/2,height/2);
-
+	//projectile object
 	Projectile projectile;
+	//timer object
+	Timer T;
+	//stats object
+	Stats stats;
 
 	//timer in upper right corner
 	sf::Font font;
@@ -58,10 +64,6 @@ int main() {
 			}
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !T.getSec()) {
-			T.setStart();
-		}
-
 		if (T.getStart()) {
 			T.countdown();
 		}
@@ -73,24 +75,22 @@ int main() {
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
 
 		//shooting
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
-			bullet.setPosition((projectile.getX() - 5), (projectile.getY() + 5));
-			projectile.setLocation((player.getX() - 5), (player.getY() + 5), player.getRotation());
-		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
 
 		//update player coordinates
 		player.updatePosition();
 		player.updateSprite();
 		projectile.updateLocation();
-		bullet.setPosition(projectile.getX(), projectile.getY());
-		bullet.setRotation(360 - player.getRotationDegrees());
+		projectile.updateSprite();
+		stats.updateStats(&player);
 
+		
 		//Render
 		window.clear();
 		T.drawTimer(&window);
+		stats.drawStats(&window);
 		window.draw(player.getSprite());
-		if (projectile.isActivated())
-			window.draw(bullet);
+		projectile.drawBullet(&window);
 		window.display();
 	}
 
