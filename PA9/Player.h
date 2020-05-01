@@ -39,8 +39,8 @@ public:
 		v.y = 0;
 		s.x = 0;
 		s.y = 1;
-		radius = 16;
-		//loading the image
+		radius = 20;
+		//loading image
 		playerTexture = new sf::Texture();
 		playerTexture->loadFromFile("Player.png");
 		playerSprite = new sf::Sprite;
@@ -53,6 +53,11 @@ public:
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setOrigin(radius, radius);
 		*/
+	}
+
+	//return fuel for stats
+	int getFuel() {
+		return fuel;
 	}
 	
 	//calculates what proportion of thrust should go into x and y components
@@ -129,10 +134,6 @@ public:
 	}
 	sf::Sprite getSprite() {
 		return *playerSprite;
-	}
-
-	void collideResults() {
-		// finish after
 	}
 };
 #endif;

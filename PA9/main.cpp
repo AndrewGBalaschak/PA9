@@ -16,12 +16,11 @@ int main() {
 	sf::Clock clock;
 	double timer = 0, delay = 0.05;
 	int minute = 0, second = 0;
+	int score = 0; //placeholder integer until we have score class
 
 	bool timerStart = false;
 
 	time_t start;
-
-	Timer T;
 
 	//create window
 	sf::RenderWindow window(sf::VideoMode(width, height), "Azteroidz");
@@ -32,8 +31,12 @@ int main() {
 
 	//player object
 	Player player(width/2,height/2);
-
+	//projectile object
 	Projectile projectile;
+	//timer object
+	Timer T;
+	//stats object
+	Stats stats;
 
 	//timer in upper right corner
 	sf::Font font;
@@ -73,10 +76,13 @@ int main() {
 		player.updateSprite();
 		projectile.updateLocation();
 		projectile.updateSprite();
+		stats.updateStats(player.getFuel(),score);
 
+		
 		//Render
 		window.clear();
 		T.drawTimer(&window);
+		stats.drawStats(&window);
 		window.draw(player.getSprite());
 		projectile.drawBullet(&window);
 		window.display();

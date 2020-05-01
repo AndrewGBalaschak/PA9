@@ -1,3 +1,6 @@
+#ifndef PROJECTILE_H
+#define PROJECTILE_H
+
 #include "Player.h"
 
 class Projectile {
@@ -72,3 +75,6 @@ public:
 			win->draw(*bullet);
 	}
 };
+
+
+#endif // !PROJECTILE_H
