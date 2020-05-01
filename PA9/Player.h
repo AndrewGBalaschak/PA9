@@ -59,10 +59,15 @@ public:
 	int getFuel() {
 		return fuel;
 	}
-
 	//return score for stats
 	int getScore() {
 		return score;
+	}
+	int getVelX() {
+		return v.x;
+	}
+	int getVelY() {
+		return v.y;
 	}
 	
 	//calculates what proportion of thrust should go into x and y components
@@ -97,7 +102,6 @@ public:
 			else if (abs(v.x + (moveSpeed * s.x)) < maxVelocity) {
 				v.x += moveSpeed * s.x;
 			}
-
 			//FOR Y
 			//velocity adjustment will not be applied if velocity is over max
 			if (abs(v.y) < maxVelocity) {

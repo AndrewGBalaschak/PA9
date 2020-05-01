@@ -25,7 +25,7 @@ public:
 		sorted = false;
 	}
 
-	//reads scores from file
+	//reads score from file
 	void readScores() {
 		ifstream infile;
 		infile.open("Highscores.csv");
@@ -134,7 +134,6 @@ public:
 			status = 1;
 		return status;
 	}
-
 	//returns score data at index as string
 	string getScore(int index) {
 		Node* current = head;

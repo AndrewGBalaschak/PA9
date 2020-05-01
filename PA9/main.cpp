@@ -64,7 +64,6 @@ int main() {
 			T.countdown();
 		}
 
-		//when the timer still has time left
 		if (!T.isTimeOut()) {
 			//movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
@@ -89,7 +88,7 @@ int main() {
 			stats.updateStats(&player);
 
 
-			//render
+			//Render
 			window.clear();
 			T.drawTimer(&window);
 			stats.drawStats(&window);
@@ -105,5 +104,6 @@ int main() {
 			window.display();
 		}
 	}
+
 	return 0;
 }
