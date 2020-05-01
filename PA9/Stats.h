@@ -18,13 +18,13 @@ public:
 		scoreText = new sf::Text("Score: ", font);
 
 		fuelText->setPosition(width - 80, 50);
-		fuelText->setCharacterSize(20);
+		fuelText->setCharacterSize(15);
 		scoreText->setPosition(width - 80, 70);
-		scoreText->setCharacterSize(20);
+		scoreText->setCharacterSize(15);
 		fuelNum->setPosition(width - 30, 50);
-		fuelNum->setCharacterSize(20);
+		fuelNum->setCharacterSize(15);
 		scoreNum->setPosition(width - 30, 70);
-		scoreNum->setCharacterSize(20);
+		scoreNum->setCharacterSize(15);
 	}
 	void updateStats(Player *p) {
 		fuel = p->getFuel();
