@@ -294,7 +294,8 @@ PA9/Debug/PA9.log
 *.tlog
 *.tlog
 *.lastbuildstate
-*.vcxproj
+PA9.vcxproj
+PA9.vcxproj.user
 *.log
 .vs/PA9/v16/Browse.VC.db
 .vs/PA9/v16/ipch/AutoPCH/dabe92124a1d2c3b/MAIN.ipch
