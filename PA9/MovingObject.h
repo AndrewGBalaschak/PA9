@@ -35,6 +35,7 @@ public:
 		return p.y;
 	}
 
+	//returns object rotation in radians
 	double getRotation() {
 		return rotation;
 	}

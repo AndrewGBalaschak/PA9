@@ -27,7 +27,7 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(width, height), "Azteroidz");
 	window.setFramerateLimit(50);
 
-	//event handler maybe?
+	//event handler
 	sf::Event event;
 
 	//player object
