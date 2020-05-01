@@ -76,7 +76,7 @@ int main() {
 		player.updateSprite();
 		projectile.updateLocation();
 		projectile.updateSprite();
-		stats.updateStats(player.getFuel(),score);
+		stats.updateStats(&player);
 
 		
 		//Render
