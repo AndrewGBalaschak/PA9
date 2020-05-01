@@ -9,6 +9,7 @@ using namespace std;
 class Score {
 private:
 	struct Node {
+		sf::Text textScore;
 		string name;
 		int score;
 		Node* prev;
@@ -24,6 +25,7 @@ public:
 		sorted = false;
 	}
 
+	//reads scores from file
 	void readScores() {
 		ifstream infile;
 		infile.open("Highscores.csv");
@@ -41,6 +43,7 @@ public:
 		infile.close();
 	}
 
+	//writes scores to file
 	void writeScores() {
 		ofstream outfile;
 		outfile.open("Highscores.csv");
@@ -56,6 +59,7 @@ public:
 		outfile.close();
 	}
 
+	//adds a new node with parameters given
 	void insertNode(string name, int score) {
 		Node* newNode = new Node;
 
@@ -85,6 +89,7 @@ public:
 		sorted = false;
 	}
 
+	//sorts nodes from highest score to lowest score
 	void sort() {
 		Node* current = head;
 
@@ -110,6 +115,7 @@ public:
 		sorted = true;
 	}
 
+	//swaps the two nodes
 	void swap(Node* node1, Node* node2) {
 		Node* tempPrev = node1->prev;
 		Node* tempNext = node1->next;
@@ -121,11 +127,46 @@ public:
 		node2->next = tempNext;
 	}
 
+	//checks for empty head
 	int isEmpty() {
 		int status = 0;
 		if (head == NULL)
 			status = 1;
 		return status;
+	}
+
+	//returns score data at index as string
+	string getScore(int index) {
+		Node* current = head;
+		string output;
+		for (int i = 0; i < index; i++) {
+			current = current->next;
+		}
+		output += current->name;
+		output += " ";
+		output += to_string(current->score);
+		return output;
+	}
+
+	//displays scores on win
+	void drawScores(sf::RenderWindow* win, sf::Font font) {
+		Node* current = head;
+		int interval = 25, counter = 0; //for some reason this crashes when counter is initialized at 1
+		sf::Text highScores("High Scores:", font);
+		highScores.setPosition(width / 2, height / 2 - 25);
+		highScores.setCharacterSize(25);
+		win->draw(highScores);
+
+		while (current != nullptr) {
+			current->textScore.setString(getScore(counter));
+			current->textScore.setFont(font);
+			current->textScore.setPosition(width / 2, height / 2 + interval * counter);
+			current->textScore.setCharacterSize(25);
+
+			win->draw(current->textScore);
+			current = current->next;
+			counter++;
+		}
 	}
 };
 #endif

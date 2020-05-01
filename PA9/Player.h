@@ -24,14 +24,10 @@ protected:
 	sf::Sprite* playerSprite;
 	sf::Texture* playerTexture;
 public:
-	Player() {
-		score = 0;
-		fuel = 500;
-	}
 	Player(int x, int y) {
 		score = 0;
 		fuel = 500;
-		fuelConsumptionRate = 5;
+		fuelConsumptionRate = 1;
 		moveSpeed = .1;
 		rotateSpeed = .05;
 		maxVelocity = 5;
@@ -90,50 +86,54 @@ public:
 
 	//accelerates forward by moveSpeed, limit is maxVelocity
 	void accelerateForward() {
-		//FOR X
-		//velocity adjustment will not be applied if velocity is over max
-		if (abs(v.x) < maxVelocity) {
-			v.x += moveSpeed * s.x;
-		}
-		//unless the adjustment decreases the velocity
-		else if (abs(v.x + (moveSpeed * s.x)) < maxVelocity) {
-			v.x += moveSpeed * s.x;
-		}
+		if (fuel > 0) {
+			//FOR X
+			//velocity adjustment will not be applied if velocity is over max
+			if (abs(v.x) < maxVelocity) {
+				v.x += moveSpeed * s.x;
+			}
+			//unless the adjustment decreases the velocity
+			else if (abs(v.x + (moveSpeed * s.x)) < maxVelocity) {
+				v.x += moveSpeed * s.x;
+			}
 
-		//FOR Y
-		//velocity adjustment will not be applied if velocity is over max
-		if (abs(v.y) < maxVelocity) {
-			v.y += moveSpeed * s.y;
+			//FOR Y
+			//velocity adjustment will not be applied if velocity is over max
+			if (abs(v.y) < maxVelocity) {
+				v.y += moveSpeed * s.y;
+			}
+			//unless the adjustment decreases the velocity
+			else if (abs(v.y + (moveSpeed * s.y)) < maxVelocity) {
+				v.y += moveSpeed * s.y;
+			}
+			fuel -= fuelConsumptionRate;
 		}
-		//unless the adjustment decreases the velocity
-		else if (abs(v.y + (moveSpeed * s.y)) < maxVelocity) {
-			v.y += moveSpeed * s.y;
-		}
-		fuel -= fuelConsumptionRate;
 	}
 
 	//accelerates reverse by moveSpeed, limit is maxVelocity
 	void accelerateReverse() {
-		//FOR X
+		if (fuel > 0) {
+			//FOR X
 		//velocity adjustment will not be applied if velocity is over max
-		if (abs(v.x) < maxVelocity) {
-			v.x -= moveSpeed * s.x;
-		}
-		//unless the adjustment decreases the velocity
-		else if (abs(v.x - (moveSpeed * s.x)) < maxVelocity) {
-			v.x -= moveSpeed * s.x;
-		}
+			if (abs(v.x) < maxVelocity) {
+				v.x -= moveSpeed * s.x;
+			}
+			//unless the adjustment decreases the velocity
+			else if (abs(v.x - (moveSpeed * s.x)) < maxVelocity) {
+				v.x -= moveSpeed * s.x;
+			}
 
-		//FOR Y
-		//velocity adjustment will not be applied if velocity is over max
-		if (abs(v.y) < maxVelocity) {
-			v.y -= moveSpeed * s.y;
+			//FOR Y
+			//velocity adjustment will not be applied if velocity is over max
+			if (abs(v.y) < maxVelocity) {
+				v.y -= moveSpeed * s.y;
+			}
+			//unless the adjustment decreases the velocity
+			else if (abs(v.y - (moveSpeed * s.y)) < maxVelocity) {
+				v.y -= moveSpeed * s.y;
+			}
+			fuel -= fuelConsumptionRate;
 		}
-		//unless the adjustment decreases the velocity
-		else if (abs(v.y - (moveSpeed * s.y)) < maxVelocity) {
-			v.y -= moveSpeed * s.y;
-		}
-		fuel -= fuelConsumptionRate;
 	}
 	void updateSprite() {
 		updatePosition();

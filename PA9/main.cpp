@@ -64,32 +64,40 @@ int main() {
 			T.countdown();
 		}
 
-		//movement
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player.accelerateForward();
-		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
+		//when the timer still has time left
+		if (!T.isTimeOut()) {
+			//movement
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player.accelerateForward();
+			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
 
-		//shooting
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) 
-			projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
+			//shooting
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
 
-		//update player coordinates
-		player.updatePosition();
-		player.updateSprite();
-		projectile.updateLocation();
-		projectile.updateSprite();
-		stats.updateStats(&player);
+			//update player coordinates
+			player.updatePosition();
+			player.updateSprite();
+			projectile.updateLocation();
+			projectile.updateSprite();
+			stats.updateStats(&player);
 
-		
-		//Render
-		window.clear();
-		T.drawTimer(&window);
-		stats.drawStats(&window);
-		window.draw(player.getSprite());
-		projectile.drawBullet(&window);
-		window.display();
+
+			//render
+			window.clear();
+			T.drawTimer(&window);
+			stats.drawStats(&window);
+			window.draw(player.getSprite());
+			projectile.drawBullet(&window);
+			window.display();
+		}
+		//once timer has run out
+		else {
+			//render
+			window.clear();
+			score.drawScores(&window, font);
+			window.display();
+		}
 	}
-
 	return 0;
 }
