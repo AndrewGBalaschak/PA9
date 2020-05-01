@@ -115,6 +115,7 @@ public:
 	}
 
 	void updateSprite() {
+		updatePosition();
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setRotation(360 - getRotationDegrees() - 30);
 	}

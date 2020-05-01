@@ -6,14 +6,7 @@ C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Player.h(45,35): warning C42
 C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Player.h(45,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Player.h(46,35): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
 C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Player.h(46,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Player.h(118,35): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Player.h(118,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Player.h(119,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\main.cpp(46,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\main.cpp(50,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\main.cpp(54,24): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\main.cpp(58,25): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\main.cpp(105,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\main.cpp(108,26): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
-C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Timer.h(48): warning C4715: 'Timer::countdown': not all control paths return a value
+C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Player.h(119,35): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Player.h(119,30): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\garet\source\repos\CS122\_PA\Asteroids\PA9\Player.h(120,56): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   PA9.vcxproj -> C:\Users\garet\source\repos\CS122\_PA\Asteroids\Debug\PA9.exe
