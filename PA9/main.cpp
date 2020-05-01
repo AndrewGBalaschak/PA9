@@ -58,10 +58,6 @@ int main() {
 			}
 		}
 
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !T.getSec()) {
-			T.setStart();
-		}
-
 		if (T.getStart()) {
 			T.countdown();
 		}
@@ -70,24 +66,19 @@ int main() {
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player.accelerateForward();
 		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::L)) {
-			bullet.setPosition((projectile.getX()), (projectile.getY()));
-			projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
-		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
 
 		//update player coordinates
 		player.updatePosition();
 		player.updateSprite();
 		projectile.updateLocation();
-		bullet.setPosition(projectile.getX(), projectile.getY());
-		bullet.setRotation(360 - player.getRotationDegrees());
+		projectile.updateSprite();
 
 		//Render
 		window.clear();
 		T.drawTimer(&window);
 		window.draw(player.getSprite());
-		if (projectile.isActivated())
-			window.draw(bullet);
+		projectile.drawBullet(&window);
 		window.display();
 	}
 
