@@ -1,9 +1,6 @@
-#ifndef PROJECTILE_H
-#define PROJECTILE_H
-
 #include "Player.h"
 
-class Projectile : public MovingObject {
+class Projectile {
 private:
 	//start at player location and 
 	//go in straight line with increased constant velocity
@@ -74,11 +71,4 @@ public:
 		if (isActivated())
 			win->draw(*bullet);
 	}
-
-	void collideResults(MovingObject &collided) {
-		// do something
-	}
 };
-
-
-#endif // !PROJECTILE_H

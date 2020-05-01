@@ -9,7 +9,7 @@
 using namespace std;
 
 class Player : public MovingObject {
-protected:
+private:
 	int score;
 	int fuel;
 	int fuelConsumptionRate; //debug
@@ -24,10 +24,7 @@ protected:
 	sf::Sprite* playerSprite;
 	sf::Texture* playerTexture;
 public:
-	Player() {
-		score = 0;
-		fuel = 500;
-	}
+
 	Player(int x, int y) {
 		score = 0;
 		fuel = 500;
@@ -42,8 +39,8 @@ public:
 		v.y = 0;
 		s.x = 0;
 		s.y = 1;
-		radius = 20;
-		//loading image
+		radius = 16;
+		//loading the image
 		playerTexture = new sf::Texture();
 		playerTexture->loadFromFile("Player.png");
 		playerSprite = new sf::Sprite;
@@ -56,16 +53,6 @@ public:
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setOrigin(radius, radius);
 		*/
-	}
-
-	//return fuel for stats
-	int getFuel() {
-		return fuel;
-	}
-
-	//return score for stats
-	int getScore() {
-		return score;
 	}
 	
 	//calculates what proportion of thrust should go into x and y components
@@ -144,8 +131,8 @@ public:
 		return *playerSprite;
 	}
 
-	void collideResults(MovingObject &collided) {
-		// do something
+	void collideResults() {
+		// finish after
 	}
 };
 #endif;
