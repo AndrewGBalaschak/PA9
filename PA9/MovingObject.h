@@ -21,6 +21,7 @@ protected:
 	Position p;
 	Velocity v;
 	double rotation; //angle the object is facing in radians
+	double radius; // radius of object for detection
 
 public:
 
@@ -79,7 +80,15 @@ public:
 				p.y = 0;
 			}
 		}
-		
+	}
+
+	bool collides(MovingObject &obj) {
+		double distance = pow(pow(p.x + obj.p.x, 2) + pow(p.y + obj.p.y, 2), 0.5);
+
+		if (distance < radius + obj.radius)
+			return true;
+		else
+			return false;
 	}
 
 };

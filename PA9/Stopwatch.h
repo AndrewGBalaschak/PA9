@@ -8,7 +8,7 @@ public:
 	Stopwatch(int m, int s) :Timer(m, s) {
 		prevRevival = start;
 	}
-	void Stopwatch::aliveTime() {
+	void aliveTime() {
 		time_t current;
 		time(&current);
 		int totSec = 0;

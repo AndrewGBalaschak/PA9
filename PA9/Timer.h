@@ -30,14 +30,13 @@ public:
 		timerNum = (m * 60) + s;
 	}
 
-	bool Timer::countdown() {
+	bool countdown() {
 		time_t current;
 		time(&current);
 		if (count == timerNum) {
 			cout << "TIME IS UP!";
 			return false;
-		}
-		else if (current == start + count + 1) {
+		} else if (current == start + count + 1) {
 			if (seconds == 0) {
 				seconds = 60;
 				minutes--;
@@ -46,11 +45,13 @@ public:
 			count++;
 			return true;
 		}
-		int getMin() {
-			return minutes;
-		}
-		int getSec() {
-			return seconds;
-		}
 	}
+
+	int getMin() {
+		return minutes;
+	}
+	int getSec() {
+		return seconds;
+	}
+	
 };

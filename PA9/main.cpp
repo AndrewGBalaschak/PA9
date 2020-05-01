@@ -31,7 +31,7 @@ int main() {
 	sf::Event event;
 
 	//player object
-	Player player;
+	Player player(400, 300);
 
 	//timer in upper right corner
 	sf::Font font;
@@ -58,13 +58,6 @@ int main() {
 	zero.setPosition(width - 45, 7);
 	zero.setCharacterSize(30);
 
-	//black rectangle for player
-	//sf::RectangleShape playerSprite(sf::Vector2f(50, 50));
-	sf::CircleShape playerSprite(50, 3);
-	playerSprite.setFillColor(sf::Color(255, 255, 255));
-	playerSprite.setPosition(player.getX(), player.getY());
-	playerSprite.setOrigin(50, 50);
-
 	//game loop
 	while (window.isOpen()) {
 
@@ -88,16 +81,15 @@ int main() {
 			min.setString(std::to_string(minute));
 			second = T.getSec();
 			sec.setString(std::to_string(second));
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player.accelerateForward();
-			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
 		}
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player.accelerateForward();
+		else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
 
 		//update player coordinates
 		player.updatePosition();
-		playerSprite.setPosition(player.getX(), player.getY());
-		playerSprite.setRotation(360 - player.getRotationDegrees() - 30);
+		player.updateSprite();
 
 		//Render
 		window.clear();
@@ -111,7 +103,7 @@ int main() {
 		window.draw(min);
 		window.draw(colon);
 		window.draw(sec);
-		window.draw(playerSprite);
+		window.draw(player.getSprite());
 		window.display();
 	}
 

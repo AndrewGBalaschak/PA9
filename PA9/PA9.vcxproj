@@ -144,19 +144,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">C:\Users\andre\OneDrive\Documents\SFML-2.5.1\include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">C:\Users\andre\OneDrive\Documents\SFML-2.5.1\include</AdditionalIncludeDirectories>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asteroid.h" />
     <ClInclude Include="header.h" />
     <ClInclude Include="MovingObject.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Stopwatch.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Highscores.csv" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Tuffy.otf" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
