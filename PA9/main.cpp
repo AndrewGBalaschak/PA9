@@ -73,13 +73,19 @@ int main() {
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
 
 			//shooting
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) 
+				objs.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
 
 			//update player coordinates
-			player.updatePosition();
-			player.updateSprite();
-			projectile.updateLocation();
-			projectile.updateSprite();
+			for (int i = 0; i < objs.size(); i++) {
+				cout << "Update " << i;
+				objs[i]->updatePosition();
+				if (!objs[i]->getActive()) {
+					delete objs[i];
+					objs.erase(objs.begin() + i);
+				}
+			}
+
 			stats.updateStats(&player);
 
 
@@ -87,8 +93,8 @@ int main() {
 			window.clear();
 			T.drawTimer(&window);
 			stats.drawStats(&window);
-			window.draw(player.getSprite());
-			projectile.drawBullet(&window);
+			for (int i = 0; i < objs.size(); i++)
+				objs[i]->draw(&window);
 			window.display();
 		}
 		//once timer has run out

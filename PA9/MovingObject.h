@@ -22,6 +22,7 @@ protected:
 	Velocity v;
 	double rotation; //angle the object is facing in radians
 	double radius;
+	bool active;
 
 public:
 
@@ -40,13 +41,18 @@ public:
 		return rotation;
 	}
 
+	//returns if object is active
+	bool getActive() {
+		return active;
+	}
+
 	//returns object rotation in degrees, converted from radians
 	double getRotationDegrees() {
 		return rotation * 180 / PI;
 	}
 
 	//updates the coordinates of the object
-	void updatePosition() {
+	virtual void updatePosition() {
 		p.x += v.x;
 		p.y -= v.y;
 
@@ -85,7 +91,12 @@ public:
 				p.y = 0;
 			}
 		}
+
+		updateSprite();
 	}
+
+	virtual void updateSprite() = 0;
+	virtual void draw(sf::RenderWindow *) = 0;
 
 	bool collides(MovingObject& obj) {
 		double distance = pow(pow(p.x + obj.p.x, 2) + pow(p.y + obj.p.y, 2), 0.5);

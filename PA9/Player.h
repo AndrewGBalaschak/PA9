@@ -39,6 +39,7 @@ public:
 		s.x = 0;
 		s.y = 1;
 		radius = 20;
+		active = true;
 		//loading image
 		playerTexture = new sf::Texture();
 		playerTexture->loadFromFile("Player.png");
@@ -136,12 +137,11 @@ public:
 		}
 	}
 	void updateSprite() {
-		updatePosition();
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setRotation(90 - getRotationDegrees());
 	}
-	sf::Sprite getSprite() {
-		return *playerSprite;
+	void draw(sf::RenderWindow *win) {
+		win->draw(*playerSprite);
 	}
 
 	void collideResults() {
