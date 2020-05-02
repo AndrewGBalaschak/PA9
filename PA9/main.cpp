@@ -64,6 +64,7 @@ int main() {
 			T.countdown();
 		}
 
+		//when the timer still has time left
 		if (!T.isTimeOut()) {
 			//movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
@@ -97,6 +98,9 @@ int main() {
 		}
 		//once timer has run out
 		else {
+
+			score.writeScores();
+
 			//render
 			window.clear();
 			score.drawScores(&window, font);

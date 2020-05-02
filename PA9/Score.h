@@ -12,17 +12,16 @@ private:
 		sf::Text textScore;
 		string name;
 		int score;
-		Node* prev;
 		Node* next;
 	};
 
 	Node* head;
-	bool sorted;
+	int count;
 
 public:
 	Score() {
 		head = nullptr;
-		sorted = false;
+		count = 0;
 	}
 
 	//reads score from file
@@ -47,10 +46,10 @@ public:
 	void writeScores() {
 		ofstream outfile;
 		outfile.open("Highscores.csv");
-		if (!sorted) {
-			sort();
-		}
 		Node* current = head;
+		checkSize();
+
+		//write to file
 		while (current != nullptr) {
 			outfile << current->name << ", " << current->score << endl;
 			current = current->next;
@@ -70,61 +69,19 @@ public:
 		if (isEmpty()) {
 			head = newNode;
 			newNode->next = nullptr;
-			newNode->prev = nullptr;
 		}
 
-		//otherwise, we put it at the end
+		//otherwise, we put it in the correct orderered spot
 		else {
 			Node* current = head;
-			while (current->next != nullptr) {
+			while (current->next != nullptr && current->next->score > newNode->score) {
 				current = current->next;
 			}
 
+			newNode->next = current->next;
 			current->next = newNode;
-
-			newNode->prev = current;
-			newNode->next = nullptr;
 		}
-
-		sorted = false;
-	}
-
-	//sorts nodes from highest score to lowest score
-	void sort() {
-		Node* current = head;
-
-		//advance current forward one so that we can use current->prev
-		current = current->next;
-
-		while (current != NULL) {
-			Node* newCurrent = current;
-			int count = 1;
-
-			//while the node is higher than the score before it, keep moving it left
-			while (newCurrent != NULL && newCurrent->prev != NULL && newCurrent->score > newCurrent->prev->score) {
-				swap(newCurrent, newCurrent->prev);
-				newCurrent = newCurrent->prev;
-				count++;
-			}
-
-			//fix the offset caused by the swapping
-			for (int i = 0; i < count; i++) {
-				current = current->next;
-			}
-		}
-		sorted = true;
-	}
-
-	//swaps the two nodes
-	void swap(Node* node1, Node* node2) {
-		Node* tempPrev = node1->prev;
-		Node* tempNext = node1->next;
-
-		node1->prev = node2->prev;
-		node1->next = node2->next;
-
-		node2->prev = tempPrev;
-		node2->next = tempNext;
+		count++;
 	}
 
 	//checks for empty head
@@ -162,9 +119,24 @@ public:
 			current->textScore.setPosition(width / 2, height / 2 + interval * counter);
 			current->textScore.setCharacterSize(25);
 
+			current->textScore.setOrigin(current->textScore.getLocalBounds().left / 2, current->textScore.getLocalBounds().top / 2);
+
 			win->draw(current->textScore);
 			current = current->next;
 			counter++;
+		}
+	}
+
+	//removes last node if >10 entries
+	void checkSize() {
+		if (count > 10) {
+			Node* current = head;
+			while (current->next != nullptr) {
+				current = current->next;
+			}
+
+			free(current->next);
+			current->next = nullptr;
 		}
 	}
 };
