@@ -18,9 +18,6 @@ int main() {
 
 	int minute = 0, second = 0;
 
-	bool timerStart = false;
-	time_t start;
-
 	//create window
 	sf::RenderWindow window(sf::VideoMode(width, height), "Azteroidz");
 	window.setFramerateLimit(50);
@@ -50,19 +47,6 @@ int main() {
 	sf::RectangleShape bullet(sf::Vector2f(2, 2));
 	bullet.setFillColor(sf::Color(255, 255, 255));
 
-	//asteroids
-	Texture asteroidsTexture;
-	asteroidsTexture.loadFromFile("asteroidTexture.jpg");
-
-	Asteroid::texture = &asteroidsTexture;
-	Asteroid::window = &window;
-
-	AsteroidsArray asteroidsArray;
-	asteroidsArray.spawnAsteroid();
-
-	int i = 0;
-
-
 	//game loop
 	while (window.isOpen()) {
 
@@ -73,12 +57,8 @@ int main() {
 			}
 		}
 
-		if (T.getStart()) {
-			T.countdown();
-		}
-
 		//when the timer still has time left
-		if (!T.isTimeOut()) {
+		if (T.countdown()) {
 			//movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
@@ -91,31 +71,29 @@ int main() {
 
 			//update player coordinates
 			for (int i = 0; i < objs.size(); i++) {
+				cout << "Update " << i;
 				objs[i]->updatePosition();
 				if (!objs[i]->getActive()) {
 					delete objs[i];
 					objs.erase(objs.begin() + i);
 				}
 			}
-			stats.updateStats(&player);
 
-			asteroidsArray.spawnAsteroid();
-			
-			checkForCollisions(objs);
+			stats.updateStats(&player);
 
 			//Render
 			window.clear();
 			T.drawTimer(&window);
 			stats.drawStats(&window);
-			asteroidsArray.drawAsteroids();
 			for (int i = 0; i < objs.size(); i++)
 				objs[i]->draw(&window);
 			window.display();
 		}
 		//once timer has run out
 		else {
-
+			score.checkHighScore(player.getScore());
 			score.writeScores();
+			score.readScores();
 
 			//render
 			window.clear();

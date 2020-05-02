@@ -14,17 +14,18 @@ protected:
 	int count;
 	time_t start;
 
-	bool timerStart;
 	sf::Text* min, * colon, * sec, * zero;
 	sf::Font font;
 
+	bool timerStart;
+
 public:
 	Timer() { //default 3 minutes
-		minutes = 3;
-		seconds = 0;
+		minutes = 0;
+		seconds = 10;
 		count = 0;
-		timerStart = true;
 		time(&start);
+		timerStart = true;
 
 		if (!font.loadFromFile("Tuffy.otf")) cout << "ERROR";
 
@@ -43,34 +44,24 @@ public:
 		zero->setCharacterSize(30);
 		setTimerNum(3, 0);
 	}
-	
-	Timer(int m, int s) {
-		minutes = m;
-		seconds = s;
-		setTimerNum(m, s);
-	}
 
 	void setStart() {
 		time(&start);
 		timerStart = true;
+	}
+
+	bool getStart() {
+		return timerStart;
 	}
 	
 	void setTimerNum(int m, int s) {
 		timerNum = (m * 60) + s;
 	}
 
-	bool isTimeOut() {
-		bool status = false;
-		if (minutes == 0 && seconds == 0) {
-			status = true;
-		}
-		return status;
-	}
-
-	void countdown() {
+	bool countdown() {
 		time_t current;
 		time(&current);
-		if (count == timerNum) {
+		if (minutes == 0 && seconds == 0) {
 			cout << "TIME IS UP!";
 			timerStart = false;
 		}
@@ -84,25 +75,19 @@ public:
 			timerStart = true;
 		}
 		update();
+		return timerStart;
 	}
 	
 	int getMin() {
 		return minutes;
 	}
-
 	int getSec() {
 		return seconds;
 	}
-
-	bool getStart() {
-		return timerStart;
-	}
-
 	void update() {
 		min->setString(to_string(minutes));
 		sec->setString(to_string(seconds));
 	}
-
 	void drawTimer(sf::RenderWindow* win) {
 		if (seconds < 10) {
 			win->draw(*zero);
