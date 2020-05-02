@@ -14,7 +14,7 @@ class AsteroidsArray
 	public:
 		AsteroidsArray();
 		void drawAsteroids(void);
-		void spawnAsteroid(void);
+		Asteroid* spawnAsteroid(void);
 	
 };
 #endif
