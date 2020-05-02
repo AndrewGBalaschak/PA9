@@ -9,6 +9,7 @@ class AsteroidsArray
 		int numAsteroids;
 		bool* destroyedAsteroids;
 		bool gameOver;
+		int asteroidsDestroyed;
 		
 	public:
 		AsteroidsArray();
