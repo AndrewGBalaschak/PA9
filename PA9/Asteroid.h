@@ -51,7 +51,12 @@ class Asteroid : public MovingObject
 		void generateSize(void);
 		bool collides(MovingObject *)
 		{
-			
+		
+		}
+		
+		bool collideResults(void)
+		{
+		
 		}
 		
 		bool collides(RectangleShape *bulletObj)
@@ -64,7 +69,7 @@ class Asteroid : public MovingObject
 			bulletY = bulletObj->getPosition().y;
 			
 			hasCollided = hasCollidedWithPosition(bulletX, bulletY);
-
+			collidesBullet = hasCollided;
 			return hasCollided;
 		}
 		
@@ -78,9 +83,18 @@ class Asteroid : public MovingObject
 			playerY = playerObj->getY();
 			
 			hasCollided = hasCollidedWithPosition(playerX, playerY);
-
+			collidesPlayer = hasCollided;
 			return hasCollided;
-			
+		}
+		
+		void updateSprite(void)
+		{
+		
+		}
+		
+		void draw(RenderWindow *)
+		{
+		
 		}
 		
 		void updateExtremes(void)
@@ -97,8 +111,6 @@ class Asteroid : public MovingObject
 				extremes[2*i] = size[2*i] + asteroidY - centerOfMassY;
 				extremes[2*i + 1] = size[2*i + 1] + asteroidX - centerOfMassX;
 			}
-		
-			
 		}
 		
 		bool hasCollidedWithPosition(int x, int y)
@@ -112,6 +124,16 @@ class Asteroid : public MovingObject
 		}
 		
 		bool isOffScreen(void);
+		
+		bool getCollidesPlayer(void) const
+		{
+			return collidesPlayer;
+		}
+		
+		bool getCollidesBullet(void) const
+		{
+			return collidesBullet;
+		}
 
 };
 
