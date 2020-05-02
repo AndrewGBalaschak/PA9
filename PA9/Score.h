@@ -139,5 +139,19 @@ public:
 			current->next = nullptr;
 		}
 	}
+
+	//checks to see if high score was made
+	void checkHighScore(int newScore) {
+		Node* current = head;
+		string newName;
+		while (current != nullptr) {
+			if (newScore > current->score) {
+				cout << "Enter name: ";
+				cin >> newName;
+				insertNode(newName, newScore);
+			}
+		}
+		checkSize();
+	}
 };
 #endif
