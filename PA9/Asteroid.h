@@ -124,6 +124,16 @@ class Asteroid : public MovingObject
 		}
 		
 		bool isOffScreen(void);
+		
+		bool getCollidesPlayer(void) const
+		{
+			return collidesPlayer;
+		}
+		
+		bool getCollidesBullet(void) const
+		{
+			return collidesBullet;
+		}
 
 };
 
