@@ -61,6 +61,10 @@ public:
 		return false;
 	}
 
+	sf::FloatRect getBounds() {
+		return bullet->getGlobalBounds();
+	}
+
 	void collideResults() {
 		// do something
 	}

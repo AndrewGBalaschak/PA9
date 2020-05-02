@@ -51,13 +51,10 @@ public:
 		
 		//loading collision boxes
 		r1 = new sf::RectangleShape(sf::Vector2f(32, 2));
-		r1->setFillColor(sf::Color::Red);
 		r1->setOrigin(sf::Vector2f(18, 5));
 		r2 = new sf::RectangleShape(sf::Vector2f(32, 2));
-		r2->setFillColor(sf::Color::Red);
 		r2->setOrigin(sf::Vector2f(18, -3));
 		r3 = new sf::RectangleShape(sf::Vector2f(15, 2));
-		r3->setFillColor(sf::Color::Red);
 		r3->setOrigin(sf::Vector2f(7, -13));
 		
 	}
@@ -159,14 +156,16 @@ public:
 		cout << getRotationDegrees() << endl;
 	}
 	void draw(sf::RenderWindow *win) {
-		win->draw(*r1);
-		win->draw(*r2);
-		win->draw(*r3);
 		win->draw(*playerSprite);
 	}
 
 	bool collides(MovingObject *obj) {
-		//Collision::PixelPerfectTest(*playerSprite, obj->)
+		if (r1->getGlobalBounds().intersects(obj->getBounds()))
+			return true;
+		if (r2->getGlobalBounds().intersects(obj->getBounds()))
+			return true;
+		if (r3->getGlobalBounds().intersects(obj->getBounds()))
+			return true;
 		return false;
 	}
 

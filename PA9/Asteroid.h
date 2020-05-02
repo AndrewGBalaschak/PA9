@@ -1,4 +1,5 @@
-#include "sfml.h"
+#include "header.h"
+using namespace sf;
 
 class Asteroid
 {
