@@ -5,6 +5,8 @@ void AsteroidsArray::drawAsteroids(void)
 	Asteroid* currentAsteroid = nullptr;
 	bool currentDestroyed = 0;
 	
+	asteroidsDestroyed = 0;
+	
 	for (int i = 0; i < numAsteroids; i++)
 	{
 		currentAsteroid = asteroidsArray[i];
@@ -17,11 +19,22 @@ void AsteroidsArray::drawAsteroids(void)
 				delete currentAsteroid; 
 				destroyedAsteroids[i] = true;
 			}
+			else if(currentAsteroid->getCollidesPlayer() == true)
+			{
+				gameOver = true;
+			}
+			else if(currentAsteroid->getCollidesBullet() == true)
+			{
+				asteroidsDestroyed++;
+				delete currentAsteroid; 
+				destroyedAsteroids[i] = true;
+			}
 			else
 			{
 				currentAsteroid->move();
 				currentAsteroid->drawAsteroid();
 			}
+			
 		}
 
 	}
@@ -43,4 +56,5 @@ AsteroidsArray::AsteroidsArray()
 	numAsteroids = 0;
 	asteroidsArray = nullptr;
 	destroyedAsteroids = nullptr;
+	gameOver = false;
 }
