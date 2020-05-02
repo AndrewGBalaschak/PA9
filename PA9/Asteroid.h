@@ -20,6 +20,7 @@ class Asteroid : public MovingObject
 		int centerOfMassY;
 		int* xOffsets;
 		int* yOffsets;
+		int extremes[4];
 	
 	public:
 		static int pointsPerSide;
@@ -50,17 +51,41 @@ class Asteroid : public MovingObject
 		{
 			
 		}
+		
+		bool collides(RectangleShape *bulletObj)
+		{
+			bool hasCollided = false;
+			int bulletX = 0;
+			int bulletY = 0;
+		
+			bulletX = bulletObj->getPosition().x;
+			bulletY = bulletObj->getPosition().y;
+			
+			hasCollided = hasCollidedWithPosition(bulletX, bulletY);
+
+			return hasCollided;
+		}
+		
 		bool collides(Player *playerObj)
 		{
 			bool hasCollided = false;
 			int playerX = 0;
 			int playerY = 0;
-			int asteroidX = 0;
-			int asteroidY = 0;
-			int extremes[4];
-			
+		
 			playerX = playerObj->getX();
 			playerY = playerObj->getY();
+			
+			hasCollided = hasCollidedWithPosition(playerX, playerY);
+
+			return hasCollided;
+			
+		}
+		
+		void updateExtremes(void)
+		{
+			int asteroidX = 0;
+			int asteroidY = 0;
+			
 			
 			asteroidX = asteroidShape.getPosition().x;
 			asteroidY = asteroidShape.getPosition().y;
@@ -70,15 +95,20 @@ class Asteroid : public MovingObject
 				extremes[2*i] = size[2*i] + asteroidY - centerOfMassY;
 				extremes[2*i + 1] = size[2*i + 1] + asteroidX - centerOfMassX;
 			}
-			
-			if(playerX >= extremes[1] && playerX <= extremes[3] && playerY >= extremes[0] && playerY <= extremes[2])
-			{
-				hasCollided = true;
-			}
-			
-			return hasCollided;
+		
 			
 		}
+		
+		bool hasCollidedWithPosition(int x, int y)
+		{
+			bool hasCollided = false;
+			
+			hasCollided = x >= extremes[1] && x <= extremes[3] && y >= extremes[0] && y <= extremes[2];
+			
+			return hasCollided;
+		
+		}
+		
 		bool isOffScreen(void);
 
 };
