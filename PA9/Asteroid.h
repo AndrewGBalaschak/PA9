@@ -1,6 +1,7 @@
 #include "sfml.h"
+#include "MovingObject.h"
 
-class Asteroid
+class Asteroid : public MovingObject
 {
 	private:
 		//Vector2f size;
