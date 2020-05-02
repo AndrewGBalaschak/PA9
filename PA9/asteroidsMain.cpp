@@ -1,6 +1,6 @@
 #include "AsteroidsArray.h"
 
-int main(void)
+int test(void)
 {
 	srand(time(NULL));
 	RenderWindow window(VideoMode(2000, 2000), "SFML");

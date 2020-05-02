@@ -89,16 +89,20 @@ public:
 	int getMin() {
 		return minutes;
 	}
+
 	int getSec() {
 		return seconds;
 	}
+
 	bool getStart() {
 		return timerStart;
 	}
+
 	void update() {
 		min->setString(to_string(minutes));
 		sec->setString(to_string(seconds));
 	}
+
 	void drawTimer(sf::RenderWindow* win) {
 		if (seconds < 10) {
 			win->draw(*zero);

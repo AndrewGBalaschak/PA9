@@ -1,5 +1,11 @@
-#include "sfml.h"
+#ifndef ASTEROID_H
+#define ASTEROID_H
+
+#include <iostream>
+#include <SFML/Graphics.hpp>
 #include "MovingObject.h"
+using namespace sf;
+
 
 class Asteroid : public MovingObject
 {
@@ -55,3 +61,4 @@ float getRandomFloatOnRange(int, int);
 float getCenter(float, float);
 int leftRiemannSum(int*, int*, int);
 void printArray(int*, int);
+#endif

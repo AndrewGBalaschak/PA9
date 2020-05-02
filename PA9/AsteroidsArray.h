@@ -1,3 +1,5 @@
+#ifndef ASTEROIDSARRAY_H
+#define ASTEROIDSARRAY_H
 #include "Asteroid.h"
 
 class AsteroidsArray
@@ -12,3 +14,4 @@ class AsteroidsArray
 		void drawAsteroids(void);
 		void spawnAsteroid(void);
 };
+#endif
