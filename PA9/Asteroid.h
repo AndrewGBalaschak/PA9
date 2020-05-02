@@ -46,7 +46,39 @@ class Asteroid : public MovingObject
 		void generateVelocity(void);
 		void generatePosition(void);
 		void generateSize(void);
-		bool collide(Vector2f);
+		bool collides(MovingObject *)
+		{
+			
+		}
+		bool collides(Player *playerObj)
+		{
+			bool hasCollided = false;
+			int playerX = 0;
+			int playerY = 0;
+			int asteroidX = 0;
+			int asteroidY = 0;
+			int extremes[4];
+			
+			playerX = playerObj->getX();
+			playerY = playerObj->getY();
+			
+			asteroidX = asteroidShape.getPosition().x;
+			asteroidY = asteroidShape.getPosition().y;
+			
+			for(int i = 0; i < 2; i++)
+			{
+				extremes[2*i] = size[2*i] + asteroidY - centerOfMassY;
+				extremes[2*i + 1] = size[2*i + 1] + asteroidX - centerOfMassX;
+			}
+			
+			if(playerX >= extremes[1] && playerX <= extremes[3] && playerY >= extremes[0] && playerY <= extremes[2])
+			{
+				hasCollided = true;
+			}
+			
+			return hasCollided;
+			
+		}
 		bool isOffScreen(void);
 
 };
