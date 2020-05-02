@@ -6,7 +6,7 @@ Texture* Asteroid::texture = nullptr;
 float Asteroid::angularFrequencyLimit = 5;
 int Asteroid::speedLimit = 5;
 int Asteroid::sizeLimit = 250;
-int Asteroid::screenDimensions[2] = { 2000, 2000 };
+int Asteroid::screenDimensions[2] = { 600, 800 };
 
 Asteroid::Asteroid()
 {
