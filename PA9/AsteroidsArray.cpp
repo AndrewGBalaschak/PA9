@@ -41,7 +41,7 @@ void AsteroidsArray::drawAsteroids(void)
 
 }
 
-void AsteroidsArray::spawnAsteroid(void)
+Asteroid* AsteroidsArray::spawnAsteroid(void)
 {
 	Asteroid* newAsteroid = new Asteroid;
 	asteroidsArray = (Asteroid**) realloc(asteroidsArray, ++numAsteroids * sizeof(Asteroid *));
@@ -49,6 +49,7 @@ void AsteroidsArray::spawnAsteroid(void)
 
 	destroyedAsteroids[numAsteroids - 1] = false;
 	asteroidsArray[numAsteroids - 1] = newAsteroid;
+	return newAsteroid;
 }
 
 AsteroidsArray::AsteroidsArray()
