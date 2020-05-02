@@ -41,7 +41,7 @@ public:
 	}
 	void updateSprite() {
 		bullet->setPosition(p.x, p.y);
-		bullet->setRotation(360 - rotation);
+		bullet->setRotation(rotation);
 
 	}
 	int getX() {
@@ -55,6 +55,10 @@ public:
 			bullet->setFillColor(sf::Color(255, 255, 255));
 			win->draw(*bullet);
 		}
+	}
+
+	bool collides(MovingObject *obj) {
+		return false;
 	}
 
 	void collideResults() {

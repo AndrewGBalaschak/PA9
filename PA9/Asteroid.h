@@ -3,9 +3,12 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "MovingObject.h"
 using namespace sf;
 
-class Asteroid {
+
+class Asteroid : public MovingObject
+{
 	private:
 		//Vector2f size;
 		Vector2f position;
