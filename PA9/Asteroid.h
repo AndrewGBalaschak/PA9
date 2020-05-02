@@ -1,7 +1,11 @@
-#include "sfml.h"
+#ifndef ASTEROID_H
+#define ASTEROID_H
 
-class Asteroid
-{
+#include <iostream>
+#include <SFML/Graphics.hpp>
+using namespace sf;
+
+class Asteroid {
 	private:
 		//Vector2f size;
 		Vector2f position;
@@ -54,3 +58,4 @@ float getRandomFloatOnRange(int, int);
 float getCenter(float, float);
 int leftRiemannSum(int*, int*, int);
 void printArray(int*, int);
+#endif

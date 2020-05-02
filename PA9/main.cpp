@@ -50,6 +50,19 @@ int main() {
 	sf::RectangleShape bullet(sf::Vector2f(2, 2));
 	bullet.setFillColor(sf::Color(255, 255, 255));
 
+	//asteroids
+	Texture asteroidsTexture;
+	asteroidsTexture.loadFromFile("asteroidTexture.jpg");
+
+	Asteroid::texture = &asteroidsTexture;
+	Asteroid::window = &window;
+
+	AsteroidsArray asteroidsArray;
+	asteroidsArray.spawnAsteroid();
+
+	int i = 0;
+
+
 	//game loop
 	while (window.isOpen()) {
 
@@ -86,12 +99,15 @@ int main() {
 			}
 			stats.updateStats(&player);
 
+			asteroidsArray.spawnAsteroid();
+			
 			checkForCollisions(objs);
 
 			//Render
 			window.clear();
 			T.drawTimer(&window);
 			stats.drawStats(&window);
+			asteroidsArray.drawAsteroids();
 			for (int i = 0; i < objs.size(); i++)
 				objs[i]->draw(&window);
 			window.display();
