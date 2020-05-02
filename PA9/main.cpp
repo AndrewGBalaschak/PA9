@@ -28,10 +28,11 @@ int main() {
 	//event handler
 	sf::Event event;
 
-	//player object
-	Player player(width/2,height/2);
-	//projectile object
-	Projectile projectile(width/2,height/2);
+	//objects list
+	vector<MovingObject *> objs;
+	Player player(width/2, height/2);
+	objs.push_back(&player);
+
 	//timer object
 	Timer T;
 	//stats object
@@ -64,7 +65,7 @@ int main() {
 		}
 
 		//when the timer still has time left
-		if (T.isTimeOut()) {
+		if (!T.isTimeOut()) {
 			//movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
@@ -72,22 +73,28 @@ int main() {
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
 
 			//shooting
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) projectile.setLocation((player.getX()), (player.getY()), player.getRotation());
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) 
+				objs.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
 
 			//update player coordinates
-			player.updatePosition();
-			player.updateSprite();
-			projectile.updateLocation();
-			projectile.updateSprite();
+			for (int i = 0; i < objs.size(); i++) {
+				cout << "Update " << i;
+				objs[i]->updatePosition();
+				if (!objs[i]->getActive()) {
+					delete objs[i];
+					objs.erase(objs.begin() + i);
+				}
+			}
+
 			stats.updateStats(&player);
 
 
-			//render
+			//Render
 			window.clear();
 			T.drawTimer(&window);
 			stats.drawStats(&window);
-			window.draw(player.getSprite());
-			projectile.drawBullet(&window);
+			for (int i = 0; i < objs.size(); i++)
+				objs[i]->draw(&window);
 			window.display();
 		}
 		//once timer has run out
@@ -101,5 +108,6 @@ int main() {
 			window.display();
 		}
 	}
+
 	return 0;
 }

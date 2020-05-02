@@ -39,6 +39,7 @@ public:
 		s.x = 0;
 		s.y = 1;
 		radius = 20;
+		active = true;
 		//loading image
 		playerTexture = new sf::Texture();
 		playerTexture->loadFromFile("Player.png");
@@ -58,10 +59,15 @@ public:
 	int getFuel() {
 		return fuel;
 	}
-
 	//return score for stats
 	int getScore() {
 		return score;
+	}
+	int getVelX() {
+		return v.x;
+	}
+	int getVelY() {
+		return v.y;
 	}
 	
 	//calculates what proportion of thrust should go into x and y components
@@ -96,7 +102,6 @@ public:
 			else if (abs(v.x + (moveSpeed * s.x)) < maxVelocity) {
 				v.x += moveSpeed * s.x;
 			}
-
 			//FOR Y
 			//velocity adjustment will not be applied if velocity is over max
 			if (abs(v.y) < maxVelocity) {
@@ -136,15 +141,14 @@ public:
 		}
 	}
 	void updateSprite() {
-		updatePosition();
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setRotation(90 - getRotationDegrees());
 	}
-	sf::Sprite getSprite() {
-		return *playerSprite;
+	void draw(sf::RenderWindow *win) {
+		win->draw(*playerSprite);
 	}
 
-	void collideResults(MovingObject &collided) {
+	void collideResults() {
 		// do something
 	}
 };
