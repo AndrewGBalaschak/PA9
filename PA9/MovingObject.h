@@ -95,13 +95,13 @@ public:
 
 		updateSprite();
 	}
-	/*
+	
 	virtual void updateSprite() = 0;
 	virtual void draw(sf::RenderWindow *) = 0;
 	virtual bool collides(MovingObject *) = 0;
 	virtual sf::FloatRect getBounds();
 	virtual void collideResults() = 0;
-	*/
+	
 
 };
 
