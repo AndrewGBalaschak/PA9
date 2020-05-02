@@ -220,6 +220,9 @@ void Asteroid::generateShape()
 	}
 
 	asteroidShape.setPosition(xPos + centerOfMassX, yPos + centerOfMassY);
+	
+	std::cout << "xOffsets: " << printArray(xOffsets, pointsPerSide*4);
+	std::cout << "yOffsets: " << printArray(yOffsets, pointsPerSide*4); 
 }
 
 bool collide(Vector2f position)
