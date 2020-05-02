@@ -21,6 +21,8 @@ class Asteroid : public MovingObject
 		int* xOffsets;
 		int* yOffsets;
 		int extremes[4];
+		bool collidesPlayer;
+		bool collidesBullet;
 	
 	public:
 		static int pointsPerSide;
