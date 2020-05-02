@@ -98,15 +98,7 @@ public:
 
 	virtual void updateSprite() = 0;
 	virtual void draw(sf::RenderWindow *) = 0;
-
-	bool collides(MovingObject* obj) {
-		double distance = pow(pow(p.x + obj->p.x, 2) + pow(p.y + obj->p.y, 2), 0.5);
-		if (distance < radius + obj->radius)
-			return true;
-		else
-			return false;
-	}
-
+	virtual bool collides(MovingObject *) = 0;
 	virtual void collideResults() = 0;
 
 };

@@ -23,6 +23,7 @@ protected:
 	Scalar s;
 	sf::Sprite* playerSprite;
 	sf::Texture* playerTexture;
+	sf::RectangleShape *r1, *r2, *r3;
 public:
 	Player(int x, int y) {
 		score = 0;
@@ -47,12 +48,18 @@ public:
 		playerSprite->setTexture(*playerTexture);
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setOrigin(16, 16);
-		/*
-		playerSprite = new sf::CircleShape(radius, 3);
-		playerSprite->setFillColor(sf::Color(255, 255, 255));
-		playerSprite->setPosition(p.x, p.y);
-		playerSprite->setOrigin(radius, radius);
-		*/
+		
+		//loading collision boxes
+		r1 = new sf::RectangleShape(sf::Vector2f(32, 2));
+		r1->setFillColor(sf::Color::Red);
+		r1->setOrigin(sf::Vector2f(18, 5));
+		r2 = new sf::RectangleShape(sf::Vector2f(32, 2));
+		r2->setFillColor(sf::Color::Red);
+		r2->setOrigin(sf::Vector2f(18, -3));
+		r3 = new sf::RectangleShape(sf::Vector2f(15, 2));
+		r3->setFillColor(sf::Color::Red);
+		r3->setOrigin(sf::Vector2f(7, -13));
+		
 	}
 
 	//return fuel for stats
@@ -143,9 +150,24 @@ public:
 	void updateSprite() {
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setRotation(90 - getRotationDegrees());
+		r1->setPosition(p.x, p.y);
+		r1->setRotation(15 - getRotationDegrees());
+		r2->setPosition(p.x, p.y);
+		r2->setRotation(342 - getRotationDegrees());
+		r3->setPosition(p.x, p.y);
+		r3->setRotation(90 - getRotationDegrees());
+		cout << getRotationDegrees() << endl;
 	}
 	void draw(sf::RenderWindow *win) {
+		win->draw(*r1);
+		win->draw(*r2);
+		win->draw(*r3);
 		win->draw(*playerSprite);
+	}
+
+	bool collides(MovingObject *obj) {
+		//Collision::PixelPerfectTest(*playerSprite, obj->)
+		return false;
 	}
 
 	void collideResults() {
