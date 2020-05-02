@@ -56,7 +56,7 @@ class Asteroid : public MovingObject
 			return false;
 		}
 		
-		void collideResults()
+		void collideResults(void)
 		{
 		}
 		
