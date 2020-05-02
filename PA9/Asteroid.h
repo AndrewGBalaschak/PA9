@@ -3,6 +3,8 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "header.h"
+#include "Player.h"
 #include "MovingObject.h"
 using namespace sf;
 
@@ -51,12 +53,11 @@ class Asteroid : public MovingObject
 		void generateSize(void);
 		bool collides(MovingObject *)
 		{
-		
+			return false;
 		}
 		
-		bool collideResults(void)
+		void collideResults()
 		{
-		
 		}
 		
 		bool collides(RectangleShape *bulletObj)

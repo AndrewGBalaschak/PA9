@@ -222,7 +222,7 @@ void Asteroid::generateShape()
 	asteroidShape.setPosition(xPos + centerOfMassX, yPos + centerOfMassY);
 }
 
-bool Asteroid::collide(Vector2f position)
+bool collide(Vector2f position)
 {
 	return true;
 }

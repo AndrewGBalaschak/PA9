@@ -66,7 +66,7 @@ public:
 	}
 
 	void collideResults() {
-		// do something
+		active = false;
 	}
 };
 

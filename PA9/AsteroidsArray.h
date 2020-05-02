@@ -5,7 +5,7 @@
 class AsteroidsArray
 {
 	private:
-		Asteroid** asteroidsArray;
+		Asteroid **asteroidsArray;
 		int numAsteroids;
 		bool* destroyedAsteroids;
 		bool gameOver;

@@ -64,7 +64,9 @@ int main() {
 		}
 
 		//when the timer still has time left
-		if (T.countdown()) {
+		if (T.countdown() && player.getActive()) {
+			checkForCollisions(objs);
+
 			//movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
@@ -95,7 +97,7 @@ int main() {
 				objs[i]->draw(&window);
 			window.display();
 		}
-		else { //once timer has run out
+		else { //once timer has run out || player is dead
 			score.checkHighScore(name, player.getScore());
 			score.writeScores();
 

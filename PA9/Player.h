@@ -170,7 +170,9 @@ public:
 	}
 
 	void collideResults() {
-		// do something
+		active = false;
+		delete playerSprite, playerTexture;
+		delete r1, r2, r3;
 	}
 };
 #endif;
