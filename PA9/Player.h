@@ -67,6 +67,12 @@ public:
 	int getScore() {
 		return score;
 	}
+	
+	void incrementScore(int addToScore)
+	{
+		score += addToScore;
+	}
+	
 	int getVelX() {
 		return v.x;
 	}
