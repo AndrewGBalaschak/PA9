@@ -15,10 +15,9 @@ public:
 		bullet->setFillColor(sf::Color());
 		active = true;
 		setLocation(playerX, playerY, deg);
-		cout << "New bullet";
 	}
 	~Projectile() {
-		cout << "Good bye";
+		delete bullet;
 	}
 
 	void setLocation(int playerX, int playerY, double deg) {

@@ -25,6 +25,7 @@ protected:
 	bool active;
 
 public:
+	virtual ~MovingObject() {};
 
 	//returns object X coordinate
 	int getX() {
@@ -98,9 +99,9 @@ public:
 	virtual void updateSprite() = 0;
 	virtual void draw(sf::RenderWindow *) = 0;
 
-	bool collides(MovingObject& obj) {
-		double distance = pow(pow(p.x + obj.p.x, 2) + pow(p.y + obj.p.y, 2), 0.5);
-		if (distance < radius + obj.radius)
+	bool collides(MovingObject* obj) {
+		double distance = pow(pow(p.x + obj->p.x, 2) + pow(p.y + obj->p.y, 2), 0.5);
+		if (distance < radius + obj->radius)
 			return true;
 		else
 			return false;
@@ -110,12 +111,12 @@ public:
 
 };
 
-void checkForCollisions(vector<MovingObject> objs) {
+void checkForCollisions(vector<MovingObject *> objs) {
 	for (int i = 0; i < objs.size()-1; i++) {
 		for (int j = i+1; j < objs.size(); j++) {
-			if (objs[i].collides(objs[j])) {
-				objs[i].collideResults();
-				objs[j].collideResults();
+			if (objs[i]->collides(objs[j])) {
+				objs[i]->collideResults();
+				objs[j]->collideResults();
 			}
 		}
 	}

@@ -77,16 +77,15 @@ int main() {
 
 			//update player coordinates
 			for (int i = 0; i < objs.size(); i++) {
-				cout << "Update " << i;
 				objs[i]->updatePosition();
 				if (!objs[i]->getActive()) {
 					delete objs[i];
 					objs.erase(objs.begin() + i);
 				}
 			}
-
 			stats.updateStats(&player);
 
+			checkForCollisions(objs);
 
 			//Render
 			window.clear();
