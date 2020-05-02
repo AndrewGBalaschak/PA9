@@ -15,7 +15,6 @@ class AsteroidsArray
 		AsteroidsArray();
 		void drawAsteroids(void);
 		void spawnAsteroid(void);
-		static Player* playerObject;
-		static RectangleShape * bulletObject;
+	
 };
 #endif
