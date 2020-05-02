@@ -11,7 +11,9 @@ Description:
 using namespace std;
 
 int main() {
-
+	
+	
+	
 	Score score;
 	score.readScores();
 
@@ -22,6 +24,16 @@ int main() {
 	//create window
 	sf::RenderWindow window(sf::VideoMode(width, height), "Azteroidz");
 	window.setFramerateLimit(50);
+	
+	Texture asteroidTexture;
+	
+	asteroidTexture.loadFromFile("asteroidTexture.jpg");
+	
+	//set up asteroids
+	Asteroid::window = window;
+	Asteroid::texture = asteroidTexture;
+	AsteroidsArray asteroidsArray;
+	Asteroid *currentAsteroid = nullptr;
 
 	//event handler
 	sf::Event event;
@@ -52,10 +64,16 @@ int main() {
 	//projectile
 	sf::RectangleShape bullet(sf::Vector2f(2, 2));
 	bullet.setFillColor(sf::Color(255, 255, 255));
-
+	
+	int totalFrames = 0;
+	
+	bool gameOver = false;
+	int asteroidsDestroyed = 0;
+	
 	//game loop
 	while (window.isOpen()) {
-
+		
+		
 		while (window.pollEvent(event)) {
 			//if the window is closed, close it
 			if (event.type == sf::Event::Closed) {
@@ -64,9 +82,21 @@ int main() {
 		}
 
 		//when the timer still has time left
-		if (T.countdown() && player.getActive()) {
-			checkForCollisions(objs);
+		if (T.countdown() && gameOver == false) {
+			
+			totalFrames++;
 
+			if(totalFrames % 100 == 0)
+			{
+				currentAsteroid = asteroidsArray.spawnAsteroid();
+				objs.push_back(currentAsteroid);
+			}
+
+			asteroidsArray.drawAsteroids();
+			
+			gameOver = asteroidsArray.getGameOver();
+			asteroidsDestroyed = asteroidsArray.getAsteroidsDestroyed();
+			
 			//movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
@@ -97,7 +127,7 @@ int main() {
 				objs[i]->draw(&window);
 			window.display();
 		}
-		else { //once timer has run out || player is dead
+		else { //once timer has run out
 			score.checkHighScore(name, player.getScore());
 			score.writeScores();
 
@@ -107,6 +137,5 @@ int main() {
 			window.display();
 		}
 	}
-
 	return 0;
 }
