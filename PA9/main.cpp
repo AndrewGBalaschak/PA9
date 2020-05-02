@@ -97,6 +97,8 @@ int main() {
 			gameOver = asteroidsArray.getGameOver();
 			asteroidsDestroyed = asteroidsArray.getAsteroidsDestroyed();
 			
+			player.incrementScore(asteroidsDestroyed);
+			
 			//movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
