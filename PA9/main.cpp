@@ -11,12 +11,13 @@ Description:
 using namespace std;
 
 int main() {
-	int width = 800, height = 600;
 
 	Score score;
 	score.readScores();
 
 	int minute = 0, second = 0;
+	
+	string name;
 
 	//create window
 	sf::RenderWindow window(sf::VideoMode(width, height), "Azteroidz");
@@ -42,6 +43,11 @@ int main() {
 	if (!font.loadFromFile("Tuffy.otf")){
 		cout << "ERROR";
 	}
+
+	cout << "Enter name: ";
+	cin >> name;
+
+	T.setStart();
 
 	//projectile
 	sf::RectangleShape bullet(sf::Vector2f(2, 2));
@@ -89,11 +95,9 @@ int main() {
 				objs[i]->draw(&window);
 			window.display();
 		}
-		//once timer has run out
-		else {
-			score.checkHighScore(player.getScore());
+		else { //once timer has run out
+			score.checkHighScore(name, player.getScore());
 			score.writeScores();
-			score.readScores();
 
 			//render
 			window.clear();

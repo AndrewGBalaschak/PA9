@@ -74,7 +74,7 @@ public:
 		//otherwise, we put it in the correct orderered spot
 		else {
 			Node* current = head;
-			while (current->next != nullptr && current->next->score > newNode->score) {
+			while (current->next != nullptr && current->next->score >= newNode->score) {
 				current = current->next;
 			}
 
@@ -131,25 +131,27 @@ public:
 	void checkSize() {
 		if (count > 10) {
 			Node* current = head;
+			Node* prev = head;
 			while (current->next != nullptr) {
+				prev = current;
 				current = current->next;
 			}
 
-			free(current->next);
-			current->next = nullptr;
+			free(current);
+			prev->next = nullptr;
 		}
 	}
 
 	//checks to see if high score was made
-	void checkHighScore(int newScore) {
+	void checkHighScore(string name,int newScore) {
+		bool check = true;
 		Node* current = head;
-		string newName;
-		while (current != nullptr) {
-			if (newScore > current->score) {
-				cout << "Enter name: ";
-				cin >> newName;
-				insertNode(newName, newScore);
+		while (current != nullptr && check) {
+			if (newScore >= current->score) {
+				insertNode(name, newScore);
+				check = false;
 			}
+			current = current->next;
 		}
 		checkSize();
 	}
