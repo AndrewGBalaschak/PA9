@@ -70,7 +70,7 @@ int main(void)
 		window.clear();
 		if (i % 60 == 0)
 		{
-			asteroidsArray.spawnAsteroid();
+			Asteroid * a = asteroidsArray.spawnAsteroid();
 		}
 		for (int i = 0; i < objs.size(); i++)
 			objs[i]->draw(&window);
