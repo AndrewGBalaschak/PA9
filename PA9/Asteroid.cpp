@@ -227,10 +227,12 @@ void Asteroid::generateShape()
 	delete f3x;
 }
 
+/*
 bool collide(Vector2f position)
 {
 	return true;
 }
+*/
 
 bool Asteroid::isOffScreen(void)
 {
