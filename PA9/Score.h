@@ -24,7 +24,7 @@ public:
 	//reads score from file
 	void readScores() {
 		std::ifstream infile;
-		infile.open("Highscores.txt");
+		infile.open("Highscores.csv");
 		std::string name, stringScore;
 		int score;
 	
@@ -42,7 +42,7 @@ public:
 	//writes scores to file
 	void writeScores() {
 		std::ofstream outfile;
-		outfile.open("Highscores.txt");
+		outfile.open("Highscores.csv");
 		Node* current = head;
 		checkSize();
 
