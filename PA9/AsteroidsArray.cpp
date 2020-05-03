@@ -16,7 +16,7 @@ void AsteroidsArray::drawAsteroids(void)
 		{
 			if (currentAsteroid->isOffScreen() == true)
 			{
-				delete currentAsteroid;
+				currentAsteroid->isDead();
 				destroyedAsteroids[i] = true;
 			}
 			/*else if (currentAsteroid->getCollidesPlayer() == true)

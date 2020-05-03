@@ -130,10 +130,8 @@ public:
 		return collidesBullet;
 	}
 	
-	void updatePosition(void)
-	{
-	
-	}
+	void updatePosition(void) {}
+	void isDead() { active = false; }
 };
 
 int getRandomIntOnRange(int, int);

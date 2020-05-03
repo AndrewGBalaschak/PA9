@@ -16,6 +16,7 @@ Asteroid::Asteroid()
 	generateShape();
 	collidesPlayer = false;
 	collidesBullet = false;
+	active = true;
 }
 
 void Asteroid::generateVelocity(void)
