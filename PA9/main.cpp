@@ -13,8 +13,14 @@ Description:
 
 int main(void)
 {
+	// objects array
+	std::vector<MovingObject *> objs;
+	Player player(WIDTH / 2, HEIGHT / 2);
+	objs.push_back(&player);
+	player.setName();
+
 	srand(time(NULL));
-	RenderWindow window(VideoMode(WIDTH, HEIGHT), "SFML");
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ASTEROIDZ");
 	window.setFramerateLimit(50);
 	Texture texture;
 
@@ -38,15 +44,9 @@ int main(void)
 	//Timer class
 	Timer T;
 
-	// objects array
-	std::vector<MovingObject *> objs;
-	Player player(WIDTH / 2, HEIGHT / 2);
-	objs.push_back(&player);
-
-	int i = 0;
+	int i = 0, j = i;
 	bool contGame = true;
 
-	player.setName();
 	T.setStart();
 
 	while (window.isOpen())
@@ -73,8 +73,8 @@ int main(void)
 		else if (Keyboard::isKeyPressed(Keyboard::Down)) player.accelerateReverse();
 
 		//shooting
-		if (Keyboard::isKeyPressed(Keyboard::Space) && i < 15) {
-			i = 0;
+		if (Keyboard::isKeyPressed(Keyboard::Space) && j > 15) {
+			j = 0;
 			objs.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
 		}
 		//update objects coordinates
@@ -89,10 +89,11 @@ int main(void)
 		
 		checkForCollisions(objs);
 
-		i++;
+		i++; j++;
 		window.clear();
 		//display game
 		if (contGame) {
+			std::cout << i << std::endl;
 			if (i % 60 == 0)
 			{
 				objs.push_back(asteroidsArray.spawnAsteroid());
@@ -105,7 +106,7 @@ int main(void)
 		}
 		//display highscores
 		else {
-			highscore.checkHighScore(player.getName(),player.getScore());
+			highscore.checkHighScore(player.getName(), player.getScore());
 			highscore.drawScores(&window,font);
 			//highscore.writeScores();
 		}
