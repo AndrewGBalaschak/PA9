@@ -53,24 +53,23 @@ int main(void)
 		else if (Keyboard::isKeyPressed(Keyboard::Down)) player.accelerateReverse();
 
 		//shooting
-		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+		if (Keyboard::isKeyPressed(Keyboard::Space) && i > 15) {
+			i = 0;
 			objs.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
 		}
 		//update objects coordinates
 		for (int i = 0; i < objs.size(); i++) {
-			//std::cout << "Update " << i;
 			objs[i]->updatePosition();
 			if (!objs[i]->getActive()) {
 				delete objs[i];
 				objs.erase(objs.begin() + i);
 			}
 		}
-
 		i++;
+
 		window.clear();
-		if (i % 60 == 0)
-		{
-			Asteroid * a = asteroidsArray.spawnAsteroid();
+		if (i % 60 == 0) {
+			Asteroid *a = asteroidsArray.spawnAsteroid();
 		}
 		for (int i = 0; i < objs.size(); i++)
 			objs[i]->draw(&window);

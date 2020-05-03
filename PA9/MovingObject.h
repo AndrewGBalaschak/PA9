@@ -97,8 +97,8 @@ public:
 	virtual void draw(sf::RenderWindow*) = 0;
 	virtual bool collides(MovingObject*) = 0;
 	sf::FloatRect getBounds() {
-		return sf::FloatRect(p.x, p.y, 50, 50);
-	}
+		return sf::FloatRect(p.x, p.y, 0, 0);
+	};
 	virtual void collideResults() = 0;
 
 };

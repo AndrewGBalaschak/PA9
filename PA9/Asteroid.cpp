@@ -1,6 +1,6 @@
 #include "Asteroid.h"
 
-int Asteroid::pointsPerSide = 10;
+int Asteroid::pointsPerSide = 5;
 RenderWindow* Asteroid::window = nullptr;
 Texture* Asteroid::texture = nullptr;
 float Asteroid::angularFrequencyLimit = 5;
@@ -246,22 +246,21 @@ bool Asteroid::isOffScreen(void)
 	currentXPosition = asteroidShape.getPosition().x;
 	currentYPosition = asteroidShape.getPosition().y;
 
-	printArray(xOffsets, pointsPerSide * 4);
+	//printArray(xOffsets, pointsPerSide * 4);
+	
+	if (centerOfMassX < 0 || centerOfMassX > WIDTH || centerOfMassY < 0 || centerOfMassY > HEIGHT) {
+		for (int i = 0; i < 4 * pointsPerSide && offScreen; i++) {
+			currentXOffset = xOffsets[i];
+			currentYOffset = yOffsets[i];
 
-	for (int i = 0; i < 4 * pointsPerSide && offScreen == true; i++)
-	{
+			currentXCoordinate = currentXOffset + currentXPosition - centerOfMassX;
+			currentYCoordinate = currentYOffset + currentYPosition - centerOfMassY;
 
-		currentXOffset = xOffsets[i];
-		currentYOffset = yOffsets[i];
-
-		currentXCoordinate = currentXOffset + currentXPosition - centerOfMassX;
-		currentYCoordinate = currentYOffset + currentYPosition - centerOfMassY;
-
-		if (!(currentXCoordinate < 0 || currentXCoordinate > screenDimensions[0] || currentYCoordinate < 0 || currentYCoordinate > screenDimensions[1]))
-		{
-			offScreen = false;
+			if (!(currentXCoordinate < 0 || currentXCoordinate > screenDimensions[0] || currentYCoordinate < 0 || currentYCoordinate > screenDimensions[1]))
+			{
+				offScreen = false;
+			}
 		}
-
 	}
 
 	return offScreen;

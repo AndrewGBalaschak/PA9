@@ -19,16 +19,16 @@ void AsteroidsArray::drawAsteroids(void)
 				delete currentAsteroid;
 				destroyedAsteroids[i] = true;
 			}
-			else if (currentAsteroid->getCollidesPlayer() == true)
+			/*else if (currentAsteroid->getCollidesPlayer() == true)
 			{
 				gameOver = true;
-			}
-			else if (currentAsteroid->getCollidesBullet() == true)
+			}*/
+			/*else if (currentAsteroid->getCollidesBullet() == true)
 			{
 				asteroidsDestroyed++;
 				delete currentAsteroid;
 				destroyedAsteroids[i] = true;
-			}
+			}*/
 			else
 			{
 				std::cout << "CURRENT_ASTEROID" << currentAsteroid;
