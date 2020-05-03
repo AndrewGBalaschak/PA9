@@ -53,6 +53,7 @@ public:
 
 	bool collides(RectangleShape* bulletObj) //returns true if asteroid has collided with the given bullet object, false otherwise
 	{
+		
 		bool hasCollided = false; //boolean to return
 		int bulletX = 0; //x and y positions of the bullet
 		int bulletY = 0;
@@ -62,6 +63,7 @@ public:
 
 		hasCollided = hasCollidedWithPosition(bulletX, bulletY); //use hasCollided function, which checks to see if the given position is within the rectangle of the asteroid
 		collidesBullet = hasCollided; //update the collidesBullet member boolean
+		std::cout << "COLLIDES BULLET: " << hasCollided << std::endl;
 		return hasCollided;
 	}
 
@@ -76,6 +78,7 @@ public:
 
 		hasCollided = hasCollidedWithPosition(playerX, playerY);
 		collidesPlayer = hasCollided;
+		std::cout << "COLLIDES PLAYER: " << hasCollided << std::endl;
 		return hasCollided;
 	}
 
