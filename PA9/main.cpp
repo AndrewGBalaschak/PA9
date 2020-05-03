@@ -10,7 +10,6 @@ Description:
 #include "Score.h"
 #include "AsteroidsArray.h"
 #include "Timer.h"
-#include "Projectile.h"
 
 int main(void)
 {
@@ -65,7 +64,8 @@ int main(void)
 				objs.erase(objs.begin() + i);
 			}
 		}
-		i++;
+		
+		checkForCollisions(objs);
 
 		window.clear();
 		if (i % 60 == 0) {
@@ -75,8 +75,8 @@ int main(void)
 			objs[i]->draw(&window);
 		asteroidsArray.drawAsteroids();
 
-
 		window.display();
+		i++;
 	}
 	return 0;
 }

@@ -2,6 +2,8 @@
 #define ASTEROID_H
 
 #include "Player.h"
+#include "Projectile.h"
+#include "MovingObject.h"
 
 
 class Asteroid : public MovingObject
@@ -39,27 +41,27 @@ public:
 	void generatePosition(void); //generates a position such that the asteroid emerges from offscreen
 	void generateSize(void); //generates a random size for the asteroid (i.e., randomly generates each of its four arms)
 
-	/*
+	
 	bool collides(MovingObject* movingObject) //redefined pure virtual function from MovingObject class
 	{
-		return false;
+		return b_collides(movingObject); // asteroids won't collide with other asteroids
 	}
-	*/
+	
 	
 	void collideResults(void) //redefined pure virtual function
 	{
-
+		isDead();
 	}
 
-	bool collides(RectangleShape* bulletObj) //returns true if asteroid has collided with the given bullet object, false otherwise
+	bool b_collides(MovingObject* bulletObj) //returns true if asteroid has collided with the given bullet object, false otherwise
 	{
 		
 		bool hasCollided = false; //boolean to return
 		int bulletX = 0; //x and y positions of the bullet
 		int bulletY = 0;
 
-		bulletX = bulletObj->getPosition().x; //get x and y coordinates of the bullet
-		bulletY = bulletObj->getPosition().y;
+		bulletX = bulletObj->getX(); //get x and y coordinates of the bullet
+		bulletY = bulletObj->getY();
 
 		hasCollided = hasCollidedWithPosition(bulletX, bulletY); //use hasCollided function, which checks to see if the given position is within the rectangle of the asteroid
 		collidesBullet = hasCollided; //update the collidesBullet member boolean
@@ -144,4 +146,5 @@ float getRandomFloatOnRange(int, int);
 float getCenter(float, float);
 int leftRiemannSum(int*, int*, int);
 void printArray(int*, int);
+void checkForCollisions(std::vector<MovingObject *> &objs);
 #endif
