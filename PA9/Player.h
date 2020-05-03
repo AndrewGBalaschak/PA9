@@ -1,7 +1,6 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-
 #include "MovingObject.h"
 
 
@@ -13,6 +12,7 @@ protected:
 	double moveSpeed; //debug
 	double rotateSpeed; //debug
 	double maxVelocity; //debug
+	std::string name;
 	struct Scalar { //dictates what proportion of the player's acceleration goes into x and y components of velocity
 		double x; //proportion of acceleration in x direction (-1 to 1)
 		double y; //proportion of acceleration in y direaction (-1 to 1)
@@ -25,9 +25,9 @@ protected:
 
 public:
 	Player(int x, int y) {
-		score = 0;
+		score = 500;
 		fuel = 500;
-		fuelConsumptionRate = 0;
+		fuelConsumptionRate = 1;
 		moveSpeed = .1;
 		rotateSpeed = .05;
 		maxVelocity = 5;
@@ -73,6 +73,12 @@ public:
 		score += addToScore;
 	}
 
+	//takes user input for name
+	void setName() {
+		std::cout << "Enter name: ";
+		std::cin >> name;
+	}
+
 	//returns x component of velocity
 	int getVelX() {
 		return v.x;
@@ -81,6 +87,11 @@ public:
 	//returns y component of velocity
 	int getVelY() {
 		return v.y;
+	}
+
+	//returns name of player
+	std::string getName() {
+		return name;
 	}
 
 	//calculates what proportion of thrust should go into x and y components
