@@ -39,11 +39,13 @@ public:
 	void generatePosition(void); //generates a position such that the asteroid emerges from offscreen
 	void generateSize(void); //generates a random size for the asteroid (i.e., randomly generates each of its four arms)
 
+	/*
 	bool collides(MovingObject* movingObject) //redefined pure virtual function from MovingObject class
 	{
 		return false;
 	}
-
+	*/
+	
 	void collideResults(void) //redefined pure virtual function
 	{
 
