@@ -19,7 +19,7 @@ protected:
 public:
 	Timer() { //default 3 minutes
 		minutes = 0;
-		seconds = 100;
+		seconds = 10;
 		count = 0;
 		time(&start);
 		timerStart = true;

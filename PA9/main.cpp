@@ -15,11 +15,19 @@ int main(void)
 {
 	srand(time(NULL));
 	RenderWindow window(VideoMode(WIDTH, HEIGHT), "SFML");
-	window.setFramerateLimit(60);
+	window.setFramerateLimit(50);
 	Texture texture;
 
 	texture.setSmooth(true);
 	texture.loadFromFile("asteroidTexture.jpg");
+
+	Score highscore;
+	highscore.readScores();
+
+	Stats playerStats;
+
+	sf::Font font;
+	if (!font.loadFromFile("Tuffy.otf")) std::cout << "ERROR";
 
 	Asteroid::texture = &texture;
 	Asteroid::window = &window;
@@ -27,12 +35,19 @@ int main(void)
 	AsteroidsArray asteroidsArray;
 	asteroidsArray.spawnAsteroid();
 
+	//Timer class
+	Timer T;
+
 	// objects array
 	std::vector<MovingObject *> objs;
 	Player player(WIDTH / 2, HEIGHT / 2);
 	objs.push_back(&player);
 
 	int i = 0;
+	bool contGame = true;
+
+	player.setName();
+	T.setStart();
 
 	while (window.isOpen())
 	{
@@ -45,6 +60,12 @@ int main(void)
 			}
 		}
 
+		//timer
+		if (T.getStart()) {
+			contGame = T.countdown();
+			playerStats.updateStats(&player);
+		}
+
 		//movement
 		if (Keyboard::isKeyPressed(Keyboard::Left)) player.rotateLeft();
 		else if (Keyboard::isKeyPressed(Keyboard::Right)) player.rotateRight();
@@ -52,12 +73,13 @@ int main(void)
 		else if (Keyboard::isKeyPressed(Keyboard::Down)) player.accelerateReverse();
 
 		//shooting
-		if (Keyboard::isKeyPressed(Keyboard::Space) && i > 15) {
+		if (Keyboard::isKeyPressed(Keyboard::Space) && i < 15) {
 			i = 0;
 			objs.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
 		}
 		//update objects coordinates
 		for (int i = 0; i < objs.size(); i++) {
+			//std::cout << "Update " << i;
 			objs[i]->updatePosition();
 			if (!objs[i]->getActive()) {
 				delete objs[i];
@@ -67,13 +89,26 @@ int main(void)
 		
 		checkForCollisions(objs);
 
+		i++;
 		window.clear();
-		if (i % 60 == 0) {
-			objs.push_back(asteroidsArray.spawnAsteroid());
+		//display game
+		if (contGame) {
+			if (i % 60 == 0)
+			{
+				objs.push_back(asteroidsArray.spawnAsteroid());
+			}
+			for (int i = 0; i < objs.size(); i++)
+				objs[i]->draw(&window);
+			asteroidsArray.drawAsteroids();
+			T.drawTimer(&window);
+			playerStats.drawStats(&window);
 		}
-		for (int i = 0; i < objs.size(); i++)
-			objs[i]->draw(&window);
-		asteroidsArray.drawAsteroids();
+		//display highscores
+		else {
+			highscore.checkHighScore(player.getName(),player.getScore());
+			highscore.drawScores(&window,font);
+			//highscore.writeScores();
+		}
 
 		window.display();
 		i++;

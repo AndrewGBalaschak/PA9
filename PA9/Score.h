@@ -6,7 +6,7 @@
 class Score {
 private:
 	struct Node {
-		sf::Text textScore;
+		Text textScore;
 		std::string name;
 		int score;
 		Node* next;
