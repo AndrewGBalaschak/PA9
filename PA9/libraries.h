@@ -13,6 +13,6 @@
 
 using namespace sf;
 
-#define WIDTH 1000
-#define HEIGHT 1000
+#define WIDTH 800
+#define HEIGHT 600
 #endif

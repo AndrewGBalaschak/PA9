@@ -15,7 +15,7 @@ Description:
 int main(void)
 {
 	srand(time(NULL));
-	RenderWindow window(VideoMode(2000, 2000), "SFML");
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "SFML");
 	window.setFramerateLimit(60);
 	Texture texture;
 
@@ -27,6 +27,11 @@ int main(void)
 
 	AsteroidsArray asteroidsArray;
 	asteroidsArray.spawnAsteroid();
+
+	// objects array
+	std::vector<MovingObject *> objs;
+	Player player(WIDTH / 2, HEIGHT / 2);
+	objs.push_back(&player);
 
 	int i = 0;
 
@@ -41,13 +46,37 @@ int main(void)
 			}
 		}
 
+		//movement
+		if (Keyboard::isKeyPressed(Keyboard::Left)) player.rotateLeft();
+		else if (Keyboard::isKeyPressed(Keyboard::Right)) player.rotateRight();
+		if (Keyboard::isKeyPressed(Keyboard::Up)) player.accelerateForward();
+		else if (Keyboard::isKeyPressed(Keyboard::Down)) player.accelerateReverse();
+
+		//shooting
+		if (Keyboard::isKeyPressed(Keyboard::Space)) {
+			objs.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
+		}
+		//update objects coordinates
+		for (int i = 0; i < objs.size(); i++) {
+			//std::cout << "Update " << i;
+			objs[i]->updatePosition();
+			if (!objs[i]->getActive()) {
+				delete objs[i];
+				objs.erase(objs.begin() + i);
+			}
+		}
+
 		i++;
 		window.clear();
 		if (i % 60 == 0)
 		{
 			asteroidsArray.spawnAsteroid();
 		}
+		for (int i = 0; i < objs.size(); i++)
+			objs[i]->draw(&window);
 		asteroidsArray.drawAsteroids();
+
+
 		window.display();
 	}
 	return 0;

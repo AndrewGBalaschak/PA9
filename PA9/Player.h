@@ -27,7 +27,7 @@ public:
 	Player(int x, int y) {
 		score = 0;
 		fuel = 500;
-		fuelConsumptionRate = 1;
+		fuelConsumptionRate = 0;
 		moveSpeed = .1;
 		rotateSpeed = .05;
 		maxVelocity = 5;

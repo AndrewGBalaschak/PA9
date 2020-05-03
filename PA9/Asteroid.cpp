@@ -4,8 +4,8 @@ int Asteroid::pointsPerSide = 10;
 RenderWindow* Asteroid::window = nullptr;
 Texture* Asteroid::texture = nullptr;
 float Asteroid::angularFrequencyLimit = 5;
-int Asteroid::speedLimit = 5;
-int Asteroid::sizeLimit = 250;
+int Asteroid::speedLimit = 2;
+int Asteroid::sizeLimit = 50;
 int Asteroid::screenDimensions[2] = { WIDTH, HEIGHT };
 
 Asteroid::Asteroid()
