@@ -1,12 +1,9 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#define PI 3.14159265358979323846
 
 #include "MovingObject.h"
-#include <iostream>
-#include <math.h>
-using namespace std;
+
 
 class Player : public MovingObject {
 protected:
@@ -23,7 +20,9 @@ protected:
 	Scalar s;
 	sf::Sprite* playerSprite;
 	sf::Texture* playerTexture;
-	sf::RectangleShape *r1, *r2, *r3;
+	sf::RectangleShape* r1, * r2, * r3;
+
+
 public:
 	Player(int x, int y) {
 		score = 0;
@@ -48,7 +47,7 @@ public:
 		playerSprite->setTexture(*playerTexture);
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setOrigin(16, 16);
-		
+
 		//loading collision boxes
 		r1 = new sf::RectangleShape(sf::Vector2f(32, 2));
 		r1->setOrigin(sf::Vector2f(18, 5));
@@ -56,30 +55,34 @@ public:
 		r2->setOrigin(sf::Vector2f(18, -3));
 		r3 = new sf::RectangleShape(sf::Vector2f(15, 2));
 		r3->setOrigin(sf::Vector2f(7, -13));
-		
+
 	}
 
 	//return fuel for stats
 	int getFuel() {
 		return fuel;
 	}
+
 	//return score for stats
 	int getScore() {
 		return score;
 	}
-	
-	void incrementScore(int addToScore)
-	{
+
+	//increase score when destroy
+	void incrementScore(int addToScore) {
 		score += addToScore;
 	}
-	
+
+	//returns x component of velocity
 	int getVelX() {
 		return v.x;
 	}
+
+	//returns y component of velocity
 	int getVelY() {
 		return v.y;
 	}
-	
+
 	//calculates what proportion of thrust should go into x and y components
 	void calculateScalar() {
 		s.x = cos(rotation);
@@ -150,6 +153,8 @@ public:
 			fuel -= fuelConsumptionRate;
 		}
 	}
+
+	//updates the player's sprite to represent its true position and rotation
 	void updateSprite() {
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setRotation(90 - getRotationDegrees());
@@ -159,13 +164,16 @@ public:
 		r2->setRotation(342 - getRotationDegrees());
 		r3->setPosition(p.x, p.y);
 		r3->setRotation(90 - getRotationDegrees());
-		cout << getRotationDegrees() << endl;
+		//std::cout << getRotationDegrees() << std::endl;
 	}
-	void draw(sf::RenderWindow *win) {
+
+	//draws player sprite on win
+	void draw(sf::RenderWindow* win) {
 		win->draw(*playerSprite);
 	}
 
-	bool collides(MovingObject *obj) {
+	//checks if obj has collided with anything
+	bool collides(MovingObject* obj) {
 		if (r1->getGlobalBounds().intersects(obj->getBounds()))
 			return true;
 		if (r2->getGlobalBounds().intersects(obj->getBounds()))
@@ -175,6 +183,7 @@ public:
 		return false;
 	}
 
+	//called when collides
 	void collideResults() {
 		active = false;
 		delete playerSprite, playerTexture;
