@@ -129,7 +129,11 @@ public:
 	{
 		return collidesBullet;
 	}
-
+	
+	void updatePosition(void)
+	{
+	
+	}
 };
 
 int getRandomIntOnRange(int, int);
