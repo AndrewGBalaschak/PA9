@@ -33,6 +33,7 @@ public:
 	static int sizeMin;
 
 	Asteroid(); //default constructor
+	~Asteroid(); //destructor
 
 
 	void generateShape(void); //generates the ConvexShape used to represent the asteroid
