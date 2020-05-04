@@ -140,4 +140,18 @@ public:
 		}
 	}
 
+	//checks to see if high score was made
+	void checkHighScore(std::string name, int newScore) {
+		bool check = true;
+		Node* current = head;
+		while (current != nullptr && check) {
+			if (newScore >= current->score) {
+				insertNode(name, newScore);
+				check = false;
+			}
+			current = current->next;
+		}
+		checkSize();
+	}
+};
 #endif
