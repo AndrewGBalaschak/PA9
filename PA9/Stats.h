@@ -12,8 +12,11 @@ public:
 	Stats() {
 		fuel = 500;
 		score = 0;
-		if (!font.loadFromFile("Tuffy.otf")) std::cout << "ERROR";
-
+		if (!font.loadFromFile("Tuffy.otf"))
+		{
+			//std::cout << "ERROR";
+		}
+		
 		fuelNum = new sf::Text(std::to_string(0), font);
 		scoreNum = new sf::Text(std::to_string(0), font);
 		fuelText = new sf::Text("Fuel: ", font);

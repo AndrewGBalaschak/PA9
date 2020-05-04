@@ -25,7 +25,10 @@ public:
 		timerStart = true;
 
 
-		if (!font.loadFromFile("Tuffy.otf")) std::cout << "ERROR";
+		if (!font.loadFromFile("Tuffy.otf")) 
+		{
+			//std::cout << "ERROR";
+		}
 		
 		//the objects for time display
 		min = new sf::Text("3", font);

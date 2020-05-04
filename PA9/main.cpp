@@ -33,7 +33,10 @@ int main(void)
 	int asteroidsDestroyed = 0;
 
 	sf::Font font;
-	if (!font.loadFromFile("Tuffy.otf")) std::cout << "ERROR";
+	if (!font.loadFromFile("Tuffy.otf"))
+	{
+		//std::cout << "ERROR";
+	}
 
 	Asteroid::texture = &texture;
 	Asteroid::window = &window;
