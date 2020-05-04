@@ -30,6 +30,7 @@ public:
 	static int speedLimit; //velocity is randomly assigned an integer on [-speedLimit, 0) U (0, speedLimit]
 	static int sizeLimit; //maximum length of the each of the four arms (again arm lengths are randomly assigned on [sizeLimit / 2, sizeLimit])
 	static int screenDimensions[2]; //width (horizontal) and length (horizontal) of the drawing window 
+	static int sizeMin;
 
 	Asteroid(); //default constructor
 
@@ -142,7 +143,11 @@ public:
 	}
 	
 	void updatePosition(void) {}
-	void isDead() { active = false; }
+	void isDead() { 
+		active = false;
+		if (sizeMin < sizeLimit)
+			sizeMin += 5;
+	}
 };
 
 int getRandomIntOnRange(int, int);

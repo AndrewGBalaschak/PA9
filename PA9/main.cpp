@@ -97,7 +97,7 @@ int main(void)
 		if (contGame && player.getActive()) {
 			player.incrementScore(asteroidsDestroyed);
 
-			if (i % 60 == 0) {
+			if (i % (60 - asteroidsDestroyed) == 0) {
 				asteroidsArray.spawnAsteroid();
 			}
 			for (int i = 0; i < bullets.size(); i++) {
