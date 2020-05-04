@@ -1,6 +1,6 @@
 #include "Asteroid.h"
 
-int Asteroid::pointsPerSide = 5;
+int Asteroid::pointsPerSide = 50;
 RenderWindow* Asteroid::window = nullptr;
 Texture* Asteroid::texture = nullptr;
 float Asteroid::angularFrequencyLimit = 5;
