@@ -117,7 +117,7 @@ public:
 		Node* current = head;
 		int interval = 25, counter = 0; //for some reason this crashes when counter is initialized at 1
 		sf::Text highScores("High Scores:", font);
-		highScores.setPosition(WIDTH / 4, HEIGHT / 4 - 25);
+		highScores.setPosition(WIDTH / 2, HEIGHT / 2 - 25);
 		highScores.setCharacterSize(25);
 		win->draw(highScores);
 
@@ -125,7 +125,7 @@ public:
 		while (current != nullptr) {
 			current->textScore.setString(getScore(counter));
 			current->textScore.setFont(font);
-			current->textScore.setPosition(WIDTH / 4, HEIGHT / 4 + interval * counter);
+			current->textScore.setPosition(WIDTH / 2, HEIGHT / 2 + interval * counter);
 			current->textScore.setCharacterSize(25);
 
 			current->textScore.setOrigin(current->textScore.getLocalBounds().left / 2, current->textScore.getLocalBounds().top / 2);
