@@ -6,8 +6,13 @@ Texture* Asteroid::texture = nullptr;
 float Asteroid::angularFrequencyLimit = 5;
 int Asteroid::speedLimit = 2;
 int Asteroid::sizeLimit = 50;
-int Asteroid::sizeMin = 10;
 int Asteroid::screenDimensions[2] = { WIDTH, HEIGHT };
+
+Asteroid::~Asteroid()
+{
+	delete xOffsets;
+	delete yOffsets;
+}
 
 Asteroid::Asteroid()
 {
@@ -89,7 +94,7 @@ void Asteroid::generateSize(void)
 	float currentSize = 0.0;
 	for (int i = 0; i < 4; i++)
 	{
-		size[i] = getRandomIntOnRange(sizeMin, sizeLimit);
+		size[i] = getRandomIntOnRange(10, sizeLimit);
 	}
 }
 
@@ -227,6 +232,12 @@ void Asteroid::generateShape()
 	delete f1x;
 	delete f2x; 
 	delete f3x;
+	
+	for(int i = 0; i < 4; i++)
+	{
+		delete xPointArrays[i];
+		delete yPointArrays[i];
+	}
 }
 
 bool Asteroid::isOffScreen(void)
