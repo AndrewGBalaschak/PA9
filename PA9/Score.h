@@ -127,7 +127,7 @@ public:
 
 	//removes last node if >10 entries
 	void checkSize() {
-		if (count > 10) {
+		if (count < 10) {
 			Node* current = head;
 			Node* prev = head;
 			while (current->next != nullptr) {
@@ -135,10 +135,8 @@ public:
 				current = current->next;
 			}
 
-			delete current;
+			free(current);
 			prev->next = nullptr;
-			
-			count--;
 		}
 	}
 
