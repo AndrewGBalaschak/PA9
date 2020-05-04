@@ -146,8 +146,8 @@ public:
 	void updatePosition(void) {}
 	void isDead() { 
 		active = false;
-		if (sizeMin < sizeLimit)
-			sizeMin += 5;
+		if (sizeMin < 45)
+			sizeMin += 1;
 	}
 };
 
