@@ -1,6 +1,6 @@
 #include "Asteroid.h"
 
-int Asteroid::pointsPerSide = 50;
+int Asteroid::pointsPerSide = 25;
 RenderWindow* Asteroid::window = nullptr;
 Texture* Asteroid::texture = nullptr;
 float Asteroid::angularFrequencyLimit = 5;
@@ -95,7 +95,7 @@ void Asteroid::generateSize(void)
 	float currentSize = 0.0;
 	for (int i = 0; i < 4; i++)
 	{
-		size[i] = getRandomIntOnRange(sizeMin, sizeLimit);
+		size[i] = getRandomIntOnRange(sizeMin, sizeMin+40);
 	}
 }
 
@@ -233,6 +233,12 @@ void Asteroid::generateShape()
 	delete f1x;
 	delete f2x; 
 	delete f3x;
+	
+	for(int i = 0; i < 4; i++)
+	{
+		delete xPointArrays[i];
+		delete yPointArrays[i];
+	}
 }
 
 bool Asteroid::isOffScreen(void)
@@ -278,6 +284,7 @@ void Asteroid::move(void)
 
 void Asteroid::drawAsteroid(void)
 {
+	//std::cout << "WINDOW: " << window;
 	(*window).draw(asteroidShape);
 }
 

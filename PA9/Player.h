@@ -59,9 +59,9 @@ public:
 		return score;
 	}
 
-	//increase score when destroying asteroid
+	//increase score when destroy
 	void incrementScore(int addToScore) {
-		score += addToScore * 50;
+		score = addToScore * 50;
 	}
 
 	//takes user input for name

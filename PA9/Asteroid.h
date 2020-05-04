@@ -30,11 +30,11 @@ public:
 	static int speedLimit; //velocity is randomly assigned an integer on [-speedLimit, 0) U (0, speedLimit]
 	static int sizeLimit; //maximum length of the each of the four arms (again arm lengths are randomly assigned on [sizeLimit / 2, sizeLimit])
 	static int screenDimensions[2]; //width (horizontal) and length (horizontal) of the drawing window 
-
 	static int sizeMin;
 
 	Asteroid(); //default constructor
 	~Asteroid(); //destructor
+
 
 	void generateShape(void); //generates the ConvexShape used to represent the asteroid
 	void move(void); //moves the asteroid according to its velocity vector and angular frequency
@@ -70,7 +70,7 @@ public:
    			bulletObj->isDead();
 			isDead();
 		}
-		std::cout << "COLLIDES BULLET: " << hasCollided << std::endl;
+		//std::cout << "COLLIDES BULLET: " << hasCollided << std::endl;
 		return hasCollided;
 	}
 
@@ -86,7 +86,7 @@ public:
 		hasCollided = hasCollidedWithPosition(playerX, playerY);
 		collidesPlayer = hasCollided;
 		if (hasCollided) playerObj->isDead();
-		std::cout << "COLLIDES PLAYER: " << hasCollided << std::endl;
+		//std::cout << "COLLIDES PLAYER: " << hasCollided << std::endl;
 		return hasCollided;
 	}
 
@@ -144,11 +144,10 @@ public:
 	}
 	
 	void updatePosition(void) {}
-
 	void isDead() { 
 		active = false;
-		if (sizeMin < sizeLimit)
-			sizeMin += 5;
+		if (sizeMin < 45)
+			sizeMin += 1;
 	}
 };
 

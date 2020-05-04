@@ -33,8 +33,10 @@ int main(void)
 	int asteroidsDestroyed = 0;
 
 	sf::Font font;
-
-	if (!font.loadFromFile("Tuffy.otf")) std::cout << "ERROR";
+	if (!font.loadFromFile("Tuffy.otf"))
+	{
+		//std::cout << "ERROR";
+	}
 
 	Asteroid::texture = &texture;
 	Asteroid::window = &window;
@@ -47,17 +49,14 @@ int main(void)
 
 	int i = 0, j = i;
 	bool contGame = true;
-
 	//boolean to track if high score data has been written so that it is not continuously written on each loop
-	bool writtenScore = false; 
+	bool writtenScore = false;
 
 	T.setStart();
 
 	while (window.isOpen())
 	{
 		Event event;
-
-		//check for window close
 		while (window.pollEvent(event))
 		{
 			if (event.type == Event::Closed)
@@ -83,7 +82,6 @@ int main(void)
 			j = 0;
 			bullets.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
 		}
-
 		//update objects coordinates
 		for (int i = 0; i < bullets.size(); i++) {
 			//std::cout << "Update " << i;
@@ -95,7 +93,6 @@ int main(void)
 		}
 		player.updatePosition();
 
-		//check for collisions
 		asteroidsArray.checkForCollisions(bullets, player);
 		asteroidsDestroyed = asteroidsArray.getAsteroidsDestroyed();
 
@@ -105,9 +102,14 @@ int main(void)
 		if (contGame && player.getActive()) {
 			player.incrementScore(asteroidsDestroyed);
 
-
-			if (i % (60 - asteroidsDestroyed) == 0) {
-				asteroidsArray.spawnAsteroid();
+			if (asteroidsDestroyed < 45) {
+				if (i % (60 - asteroidsDestroyed) == 0) {
+					asteroidsArray.spawnAsteroid();
+				}
+			} else {
+				if (i % 15 == 0) {
+					asteroidsArray.spawnAsteroid();
+				}
 			}
 			for (int i = 0; i < bullets.size(); i++) {
 				if (bullets[i]->getActive() == true) 
@@ -118,12 +120,10 @@ int main(void)
 			T.drawTimer(&window);
 			playerStats.drawStats(&window);
 		}
-
 		//display highscores
 		else {
 			if (!writtenScore) {
 				highscore.insertNode(player.getName(), player.getScore());
-				highscore.checkSize();
 				writtenScore = true;
 			}
 			highscore.drawScores(&window,font);
