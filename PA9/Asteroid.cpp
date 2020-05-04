@@ -1,11 +1,12 @@
 #include "Asteroid.h"
 
-int Asteroid::pointsPerSide = 5;
+int Asteroid::pointsPerSide = 7;
 RenderWindow* Asteroid::window = nullptr;
 Texture* Asteroid::texture = nullptr;
 float Asteroid::angularFrequencyLimit = 5;
 int Asteroid::speedLimit = 2;
 int Asteroid::sizeLimit = 50;
+int Asteroid::sizeMin = 10;
 int Asteroid::screenDimensions[2] = { WIDTH, HEIGHT };
 
 Asteroid::~Asteroid()
@@ -94,7 +95,7 @@ void Asteroid::generateSize(void)
 	float currentSize = 0.0;
 	for (int i = 0; i < 4; i++)
 	{
-		size[i] = getRandomIntOnRange(10, sizeLimit);
+		size[i] = getRandomIntOnRange(sizeMin, sizeLimit);
 	}
 }
 
@@ -102,13 +103,13 @@ void printArray(int* arr, int n)
 {
 	int integer = 0;
 
-	std::cout << "{ ";
+	//std::cout << "{ ";
 	for (int i = 0; i < n - 1; i++)
 	{
 		integer = arr[i];
-		std::cout << integer << ", ";
+		//std::cout << integer << ", ";
 	}
-	std::cout << arr[n - 1] << " }" << std::endl;
+	//std::cout << arr[n - 1] << " }" << std::endl;
 }
 
 void Asteroid::generateShape()
@@ -283,7 +284,7 @@ void Asteroid::move(void)
 
 void Asteroid::drawAsteroid(void)
 {
-	std::cout << "WINDOW: " << window;
+	//std::cout << "WINDOW: " << window;
 	(*window).draw(asteroidShape);
 }
 

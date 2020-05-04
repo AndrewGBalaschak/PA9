@@ -164,10 +164,10 @@ int main() {
 	//font.loadFromFile("Tuffy.ttf");
 
 	if (!font.loadFromFile("Tuffy.otf")) {
-		std::cout << "ERROR";
+		//std::cout << "ERROR";
 	}
 
-	std::cout << "Enter name: ";
+	//std::cout << "Enter name: ";
 	std::cin >> name;
 
 	T.setStart();
@@ -224,7 +224,7 @@ int main() {
 			}
 			//update player coordinates
 			for (int i = 0; i < objs.size(); i++) {
-				//std::cout << "Update " << i;
+				////std::cout << "Update " << i;
 				objs[i]->updatePosition();
 				if (!objs[i]->getActive()) {
 					delete objs[i];

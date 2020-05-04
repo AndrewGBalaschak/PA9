@@ -70,7 +70,7 @@ public:
    			bulletObj->isDead();
 			isDead();
 		}
-		std::cout << "COLLIDES BULLET: " << hasCollided << std::endl;
+		//std::cout << "COLLIDES BULLET: " << hasCollided << std::endl;
 		return hasCollided;
 	}
 
@@ -86,7 +86,7 @@ public:
 		hasCollided = hasCollidedWithPosition(playerX, playerY);
 		collidesPlayer = hasCollided;
 		if (hasCollided) playerObj->isDead();
-		std::cout << "COLLIDES PLAYER: " << hasCollided << std::endl;
+		//std::cout << "COLLIDES PLAYER: " << hasCollided << std::endl;
 		return hasCollided;
 	}
 

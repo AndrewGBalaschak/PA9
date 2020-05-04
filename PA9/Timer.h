@@ -65,7 +65,7 @@ public:
 		time_t current;
 		time(&current);
 		if (minutes == 0 && seconds == 0) {
-			std::cout << "TIME IS UP!";
+			//std::cout << "TIME IS UP!";
 			timerStart = false;
 		}
 		//if one second has passed, then one second decrement from the seconds and minutes variables
