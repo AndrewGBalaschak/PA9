@@ -1,6 +1,6 @@
 #include "Asteroid.h"
 
-int Asteroid::pointsPerSide = 25;
+int Asteroid::pointsPerSide = 15;
 RenderWindow* Asteroid::window = nullptr;
 Texture* Asteroid::texture = nullptr;
 float Asteroid::angularFrequencyLimit = 5;
@@ -95,7 +95,7 @@ void Asteroid::generateSize(void)
 	float currentSize = 0.0;
 	for (int i = 0; i < 4; i++)
 	{
-		size[i] = getRandomIntOnRange(sizeMin, sizeMin+40);
+		size[i] = getRandomIntOnRange(sizeMin, sizeMin+60);
 	}
 }
 

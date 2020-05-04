@@ -66,8 +66,15 @@ public:
 		if (isEmpty()) {
 			head = newNode;
 			newNode->next = nullptr;
+		} else if (head->next == nullptr) {
+			if (newNode->score >= head->score) {
+				newNode->next = head;
+				head = newNode;
+			} else {
+				head->next = newNode;
+				newNode->next = nullptr;
+			}
 		}
-
 		//otherwise, we put it in the correct orderered spot
 		else {
 			Node* current = head;
