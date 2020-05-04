@@ -121,7 +121,7 @@ public:
 
 	}
 
-	bool hasCollidedWithPosition(int x, int y)
+	bool hasCollidedWithPosition(int x, int y) //returns true if the given coordinate is within the asteroid (i.e., it has collided with it)
 	{
 		bool hasCollided = false;
 
@@ -131,8 +131,9 @@ public:
 
 	}
 
-	bool isOffScreen(void);
+	bool isOffScreen(void); //returns true if the asteroid is offscreen, at which point it is deleted
 
+	//getter functions
 	bool getCollidesPlayer(void) const
 	{
 		return collidesPlayer;
@@ -151,6 +152,7 @@ public:
 	}
 };
 
+//helper functions
 int getRandomIntOnRange(int, int);
 int* getRandomSequenceOnRange(int, int, int);
 void selectionSortRecursive(int*, int, bool);
