@@ -4,6 +4,8 @@ void AsteroidsArray::drawAsteroids(void)
 {
 	Asteroid* currentAsteroid = nullptr;
 	bool currentDestroyed = 0;
+	
+	std::cout << "NUM_ASTEROIDS: " << numAsteroids << std::endl;
 
 	for (int i = 0; i < numAsteroids; i++)
 	{
