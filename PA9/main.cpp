@@ -100,8 +100,10 @@ int main(void)
 			if (i % 60 == 0) {
 				asteroidsArray.spawnAsteroid();
 			}
-			for (int i = 0; i < bullets.size(); i++)
-				bullets[i]->draw(&window);
+			for (int i = 0; i < bullets.size(); i++) {
+				if (bullets[i]->getActive() == true) 
+					bullets[i]->draw(&window);
+			}
 			player.draw(&window);
 			asteroidsArray.drawAsteroids();
 			T.drawTimer(&window);

@@ -5,8 +5,6 @@ void AsteroidsArray::drawAsteroids(void)
 	Asteroid* currentAsteroid = nullptr;
 	bool currentDestroyed = 0;
 
-	asteroidsDestroyed = 0;
-
 	for (int i = 0; i < numAsteroids; i++)
 	{
 		currentAsteroid = asteroidsArray[i];
@@ -64,6 +62,7 @@ Asteroid* AsteroidsArray::spawnAsteroid(void)
 
 AsteroidsArray::AsteroidsArray()
 {
+	asteroidsDestroyed = 0;
 	numAsteroids = 0;
 	asteroidsArray = nullptr;
 	destroyedAsteroids = nullptr;
@@ -74,16 +73,16 @@ void AsteroidsArray::checkForCollisions(std::vector<Projectile *> &objs, Player 
 	Asteroid *currentAsteroid = nullptr;
 	bool currentDestroyed = 0;
 
-	asteroidsDestroyed = 0;
-
 	for (int i = 0; i < numAsteroids; i++) {
 		currentAsteroid = asteroidsArray[i];
 		currentDestroyed = destroyedAsteroids[i];
 		std::cout << "DESTROYED: " << currentAsteroid << ", " << i << ", " << currentDestroyed << std::endl;
 		if (currentDestroyed == false) {
 			currentAsteroid->collides_(&p);
-			for (int i = 0; i < objs.size(); i++)
-				currentAsteroid->collides_(objs[i]);
+			for (int i = 0; i < objs.size(); i++) {
+				if (objs[i]->getActive() == true)
+					currentAsteroid->collides_(objs[i]);
+			}
 		}
 	}
 }

@@ -65,7 +65,7 @@ public:
 		hasCollided = hasCollidedWithPosition(bulletX, bulletY); //use hasCollided function, which checks to see if the given position is within the rectangle of the asteroid
 		collidesBullet = hasCollided; //update the collidesBullet member boolean
 		if (hasCollided) {
-			bulletObj->isDead();
+   			bulletObj->isDead();
 			isDead();
 		}
 		std::cout << "COLLIDES BULLET: " << hasCollided << std::endl;

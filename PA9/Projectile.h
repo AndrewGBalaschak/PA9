@@ -38,9 +38,6 @@ public:
 		if (p.x <= 0 || p.x >= WIDTH || p.y <= 0 || p.y >= HEIGHT) {
 			active = false;
 		}
-		else {
-			active = true;
-		}
 		updateSprite();
 	}
 
