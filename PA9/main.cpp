@@ -100,8 +100,14 @@ int main(void)
 		if (contGame && player.getActive()) {
 			player.incrementScore(asteroidsDestroyed);
 
-			if (i % (60 - asteroidsDestroyed) == 0) {
-				asteroidsArray.spawnAsteroid();
+			if (asteroidsDestroyed < 45) {
+				if (i % (60 - asteroidsDestroyed) == 0) {
+					asteroidsArray.spawnAsteroid();
+				}
+			} else {
+				if (i % 15 == 0) {
+					asteroidsArray.spawnAsteroid();
+				}
 			}
 			for (int i = 0; i < bullets.size(); i++) {
 				if (bullets[i]->getActive() == true) 
