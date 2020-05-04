@@ -162,6 +162,5 @@ void swap(int*, int, int);
 float getRandomFloatOnRange(int, int);
 float getCenter(float, float);
 int leftRiemannSum(int*, int*, int);
-void printArray(int*, int);
 
 #endif
