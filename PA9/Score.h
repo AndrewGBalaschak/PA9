@@ -48,8 +48,11 @@ public:
 
 		//write to file
 		while (current != nullptr) {
-			outfile << current->name << ", " << current->score << std::endl;
+			outfile << current->name << ", " << current->score;
 			current = current->next;
+			if (current != nullptr) {
+				outfile << std::endl;
+			}
 		}
 
 		outfile.close();
@@ -95,6 +98,7 @@ public:
 			status = 1;
 		return status;
 	}
+
 	//returns score data at index as string
 	std::string getScore(int index) {
 		Node* current = head;
@@ -134,7 +138,7 @@ public:
 
 	//removes last node if >10 entries
 	void checkSize() {
-		if (count < 10) {
+		if (count > 10) {
 			Node* current = head;
 			Node* prev = head;
 			while (current->next != nullptr) {
@@ -144,6 +148,7 @@ public:
 
 			free(current);
 			prev->next = nullptr;
+			count--;
 		}
 	}
 };

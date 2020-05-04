@@ -124,7 +124,6 @@ int main(void)
 		else {
 			if (!writtenScore) {
 				highscore.insertNode(player.getName(), player.getScore());
-				highscore.checkSize();
 				writtenScore = true;
 			}
 			highscore.drawScores(&window,font);
