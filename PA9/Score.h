@@ -137,6 +137,8 @@ public:
 
 			delete current;
 			prev->next = nullptr;
+			
+			count--;
 		}
 	}
 
