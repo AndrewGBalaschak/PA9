@@ -6,29 +6,164 @@ Date:
 Description:
 */
 
-#include <iostream>
-#include "header.h"
-using namespace std;
+#include "Stats.h"
+#include "Score.h"
+#include "AsteroidsArray.h"
+#include "Timer.h"
 
+int main(void)
+{
+	// objects array
+	std::vector<Projectile *> bullets;
+	Player player(WIDTH / 2, HEIGHT / 2);
+	player.setName();
+
+	srand(time(NULL));
+	RenderWindow window(VideoMode(WIDTH, HEIGHT), "ASTEROIDZ");
+	window.setFramerateLimit(50);
+	Texture texture;
+
+	texture.setSmooth(true);
+	texture.loadFromFile("asteroidTexture.jpg");
+
+	Score highscore;
+	highscore.readScores();
+
+	Stats playerStats;
+	int asteroidsDestroyed = 0;
+
+	sf::Font font;
+	if (!font.loadFromFile("Tuffy.otf")) std::cout << "ERROR";
+
+	Asteroid::texture = &texture;
+	Asteroid::window = &window;
+
+	AsteroidsArray asteroidsArray;
+	asteroidsArray.spawnAsteroid();
+
+	//Timer class
+	Timer T;
+
+	int i = 0, j = i;
+	bool contGame = true;
+
+	//boolean to track if high score data has been written so that it is not continuously written on each loop
+	bool writtenScore = false; 
+
+	T.setStart();
+
+	while (window.isOpen())
+	{
+		Event event;
+
+		//check for window close
+		while (window.pollEvent(event))
+		{
+			if (event.type == Event::Closed)
+			{
+				window.close();
+			}
+		}
+
+		//timer
+		if (T.getStart()) {
+			contGame = T.countdown();
+			playerStats.updateStats(&player);
+		}
+
+		//movement
+		if (Keyboard::isKeyPressed(Keyboard::Left)) player.rotateLeft();
+		else if (Keyboard::isKeyPressed(Keyboard::Right)) player.rotateRight();
+		if (Keyboard::isKeyPressed(Keyboard::Up)) player.accelerateForward();
+		else if (Keyboard::isKeyPressed(Keyboard::Down)) player.accelerateReverse();
+
+		//shooting
+		if (Keyboard::isKeyPressed(Keyboard::Space) && j > 15) {
+			j = 0;
+			bullets.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
+		}
+
+		//update objects coordinates
+		for (int i = 0; i < bullets.size(); i++) {
+			//std::cout << "Update " << i;
+			bullets[i]->updatePosition();
+			if (!bullets[i]->getActive()) {
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
+			}
+		}
+		player.updatePosition();
+
+		//check for collisions
+		asteroidsArray.checkForCollisions(bullets, player);
+		asteroidsDestroyed = asteroidsArray.getAsteroidsDestroyed();
+
+		i++; j++;
+		window.clear();
+		//display game
+		if (contGame && player.getActive()) {
+			player.incrementScore(asteroidsDestroyed);
+
+			if (i % 60 == 0) {
+				asteroidsArray.spawnAsteroid();
+			}
+			for (int i = 0; i < bullets.size(); i++) {
+				if (bullets[i]->getActive() == true) 
+					bullets[i]->draw(&window);
+			}
+			player.draw(&window);
+			asteroidsArray.drawAsteroids();
+			T.drawTimer(&window);
+			playerStats.drawStats(&window);
+		}
+
+		//display highscores
+		else {
+			if (!writtenScore) {
+				highscore.insertNode(player.getName(), player.getScore());
+				highscore.checkSize();
+				writtenScore = true;
+			}
+			highscore.drawScores(&window,font);
+		}
+
+		window.display();
+	}
+	highscore.writeScores();
+	return 0;
+}
+
+/*
 int main() {
-
 	Score score;
-	score.readScores();
+	//score.readScores();
 
 	int minute = 0, second = 0;
-	
-	string name;
+
+	std::string name;
+
+	time_t currentTime;
 
 	//create window
-	sf::RenderWindow window(sf::VideoMode(width, height), "Azteroidz");
-	window.setFramerateLimit(50);
+	sf::RenderWindow window(sf::VideoMode(1000, 1000), "Azteroidz");
+	window.setFramerateLimit(60);
+
+	Texture asteroidTexture;
+
+	asteroidTexture.loadFromFile("asteroidTexture.jpg");
+
+	//set up asteroids
+	Asteroid::window = &window;
+	Asteroid::texture = &asteroidTexture;
+	AsteroidsArray asteroidsArray;
+	Asteroid* currentAsteroid = nullptr;
 
 	//event handler
 	sf::Event event;
 
 	//objects list
-	vector<MovingObject *> objs;
-	Player player(width/2, height/2);
+	std::vector<MovingObject*> objs;
+	Player player(WIDTH / 2, HEIGHT / 2);
 	objs.push_back(&player);
 
 	//timer object
@@ -40,12 +175,12 @@ int main() {
 	sf::Font font;
 	//font.loadFromFile("Tuffy.ttf");
 
-	if (!font.loadFromFile("Tuffy.otf")){
-		cout << "ERROR";
+	if (!font.loadFromFile("Tuffy.otf")) {
+		std::cout << "ERROR";
 	}
 
-	cout << "Enter name: ";
-	cin >> name;
+	std::cout << "Enter name: ";
+	std::cin >> name;
 
 	T.setStart();
 
@@ -53,8 +188,14 @@ int main() {
 	sf::RectangleShape bullet(sf::Vector2f(2, 2));
 	bullet.setFillColor(sf::Color(255, 255, 255));
 
+	int totalFrames = 0;
+
+	bool gameOver = false;
+	int asteroidsDestroyed = 0;
+
 	//game loop
 	while (window.isOpen()) {
+
 
 		while (window.pollEvent(event)) {
 			//if the window is closed, close it
@@ -64,7 +205,25 @@ int main() {
 		}
 
 		//when the timer still has time left
-		if (T.countdown()) {
+		if (T.countdown() && gameOver == false) {
+
+			totalFrames++;
+
+			if (totalFrames % 240 == 0)
+			{
+				currentAsteroid = asteroidsArray.spawnAsteroid();
+				objs.push_back(currentAsteroid);
+			}
+
+			checkForCollisions(objs);
+
+			asteroidsArray.drawAsteroids();
+
+			gameOver = asteroidsArray.getGameOver();
+			asteroidsDestroyed = asteroidsArray.getAsteroidsDestroyed();
+
+			player.incrementScore(asteroidsDestroyed);
+
 			//movement
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.rotateLeft();
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.rotateRight();
@@ -72,12 +231,12 @@ int main() {
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.accelerateReverse();
 
 			//shooting
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) 
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
 				objs.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
-
+			}
 			//update player coordinates
 			for (int i = 0; i < objs.size(); i++) {
-				cout << "Update " << i;
+				//std::cout << "Update " << i;
 				objs[i]->updatePosition();
 				if (!objs[i]->getActive()) {
 					delete objs[i];
@@ -105,6 +264,6 @@ int main() {
 			window.display();
 		}
 	}
-
 	return 0;
 }
+*/

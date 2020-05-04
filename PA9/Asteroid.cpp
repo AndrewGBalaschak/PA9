@@ -1,12 +1,12 @@
 #include "Asteroid.h"
 
-int Asteroid::pointsPerSide = 75;
+int Asteroid::pointsPerSide = 5;
 RenderWindow* Asteroid::window = nullptr;
 Texture* Asteroid::texture = nullptr;
 float Asteroid::angularFrequencyLimit = 5;
-int Asteroid::speedLimit = 5;
-int Asteroid::sizeLimit = 250;
-int Asteroid::screenDimensions[2] = { 2000, 2000 };
+int Asteroid::speedLimit = 2;
+int Asteroid::sizeLimit = 50;
+int Asteroid::screenDimensions[2] = { WIDTH, HEIGHT };
 
 Asteroid::Asteroid()
 {
@@ -16,6 +16,7 @@ Asteroid::Asteroid()
 	generateShape();
 	collidesPlayer = false;
 	collidesBullet = false;
+	active = true;
 }
 
 void Asteroid::generateVelocity(void)
@@ -79,7 +80,7 @@ void Asteroid::generatePosition(void)
 		{
 			position.y = -size[2];
 		}
-	}	
+	}
 }
 
 void Asteroid::generateSize(void)
@@ -87,7 +88,7 @@ void Asteroid::generateSize(void)
 	float currentSize = 0.0;
 	for (int i = 0; i < 4; i++)
 	{
-		size[i] = getRandomIntOnRange(0, sizeLimit);
+		size[i] = getRandomIntOnRange(10, sizeLimit);
 	}
 }
 
@@ -125,11 +126,11 @@ void Asteroid::generateShape()
 	int* xPointArrays[4];
 	int* yPointArrays[4];
 	int newExtremes[4];
-	int* x = nullptr; 
+	int* x = nullptr;
 	int* f1x = nullptr;
 	int* f2x = nullptr;
 	int* f3x = nullptr;
-	
+
 
 
 	int counter = 0;
@@ -190,7 +191,7 @@ void Asteroid::generateShape()
 	{
 		x[i] = xPointArrays[1][i];
 		f1x[i] = yPointArrays[1][i] - yPointArrays[0][pointsPerSide - 1 - i];
-		f2x[i] = x[i] * f1x[i]; 
+		f2x[i] = x[i] * f1x[i];
 		f3x[i] = 0.5 * (pow(yPointArrays[1][i], 2) - pow(yPointArrays[0][pointsPerSide - 1 - i], 2));
 	}
 
@@ -204,8 +205,8 @@ void Asteroid::generateShape()
 
 	int area = 0.0;
 
-	area = leftRiemannSum(x, f1x, pointsPerSide*2);
-	centerOfMassX = (1/(float) area) * (leftRiemannSum(x, f2x, pointsPerSide*2));
+	area = leftRiemannSum(x, f1x, pointsPerSide * 2);
+	centerOfMassX = (1 / (float)area) * (leftRiemannSum(x, f2x, pointsPerSide * 2));
 	centerOfMassY = (1 / (float)area) * (leftRiemannSum(x, f3x, pointsPerSide * 2));
 
 
@@ -220,11 +221,11 @@ void Asteroid::generateShape()
 	}
 
 	asteroidShape.setPosition(xPos + centerOfMassX, yPos + centerOfMassY);
-}
 
-bool Asteroid::collide(Vector2f position)
-{
-	return true;
+	delete x;
+	delete f1x;
+	delete f2x; 
+	delete f3x;
 }
 
 bool Asteroid::isOffScreen(void)
@@ -241,60 +242,24 @@ bool Asteroid::isOffScreen(void)
 	currentXPosition = asteroidShape.getPosition().x;
 	currentYPosition = asteroidShape.getPosition().y;
 
-	for (int i = 0; i < 4 * pointsPerSide && offScreen == true; i++)
-	{
-		currentXOffset = xOffsets[i];
-		currentYOffset = yOffsets[i];
+	//printArray(xOffsets, pointsPerSide * 4);
+	
+	if (centerOfMassX < 0 || centerOfMassX > WIDTH || centerOfMassY < 0 || centerOfMassY > HEIGHT) {
+		for (int i = 0; i < 4 * pointsPerSide && offScreen; i++) {
+			currentXOffset = xOffsets[i];
+			currentYOffset = yOffsets[i];
 
-		currentXCoordinate = currentXOffset + currentXPosition - centerOfMassX;
-		currentYCoordinate = currentYOffset + currentYPosition - centerOfMassY;
+			currentXCoordinate = currentXOffset + currentXPosition - centerOfMassX;
+			currentYCoordinate = currentYOffset + currentYPosition - centerOfMassY;
 
-		if (!(currentXCoordinate < 0 || currentXCoordinate > screenDimensions[0] || currentYCoordinate < 0 || currentYCoordinate > screenDimensions[1]))
-		{
-			offScreen = false;
+			if (!(currentXCoordinate < 0 || currentXCoordinate > screenDimensions[0] || currentYCoordinate < 0 || currentYCoordinate > screenDimensions[1]))
+			{
+				offScreen = false;
+			}
 		}
-
 	}
 
 	return offScreen;
-}
-
-void Asteroid::setXPosition(float x)
-{
-	position.x = x;
-	updatePosition();
-}
-
-void Asteroid::setYPosition(float y)
-{
-	position.y = y;
-	updatePosition();
-}
-
-void Asteroid::setXVelocity(float x)
-{
-	velocity.x = x;
-}
-
-void Asteroid::setYVelocity(float y)
-{
-	velocity.y = y;
-}
-
-void Asteroid::setVelocity(Vector2f newVelocity)
-{
-	velocity = newVelocity;
-}
-
-void Asteroid::setPosition(Vector2f newPosition)
-{
-	position = newPosition;
-	updatePosition();
-}
-
-void Asteroid::updatePosition(void)
-{
-	asteroidShape.setPosition(position);
 }
 
 void Asteroid::move(void)
@@ -306,6 +271,7 @@ void Asteroid::move(void)
 
 void Asteroid::drawAsteroid(void)
 {
+	std::cout << "WINDOW: " << window;
 	(*window).draw(asteroidShape);
 }
 
@@ -461,3 +427,4 @@ int leftRiemannSum(int* x, int* fx, int n)
 
 	return riemannSum;
 }
+

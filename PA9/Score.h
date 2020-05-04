@@ -1,16 +1,13 @@
 #ifndef SCORE_H
 #define SCORE_H
 
-#include <iostream>
-#include <fstream>
-#include <string>
-using namespace std;
+#include "libraries.h"
 
 class Score {
 private:
 	struct Node {
-		sf::Text textScore;
-		string name;
+		Text textScore;
+		std::string name;
 		int score;
 		Node* next;
 	};
@@ -26,11 +23,11 @@ public:
 
 	//reads score from file
 	void readScores() {
-		ifstream infile;
+		std::ifstream infile;
 		infile.open("Highscores.csv");
-		string name, stringScore;
+		std::string name, stringScore;
 		int score;
-
+	
 		while (!infile.eof()) {
 			getline(infile, name, ',');
 			getline(infile, stringScore);
@@ -38,20 +35,20 @@ public:
 
 			insertNode(name, score);
 		}
-
+		
 		infile.close();
 	}
 
 	//writes scores to file
 	void writeScores() {
-		ofstream outfile;
+		std::ofstream outfile;
 		outfile.open("Highscores.csv");
 		Node* current = head;
 		checkSize();
 
 		//write to file
 		while (current != nullptr) {
-			outfile << current->name << ", " << current->score << endl;
+			outfile << current->name << ", " << current->score << std::endl;
 			current = current->next;
 		}
 
@@ -59,7 +56,7 @@ public:
 	}
 
 	//adds a new node with parameters given
-	void insertNode(string name, int score) {
+	void insertNode(std::string name, int score) {
 		Node* newNode = new Node;
 
 		newNode->name = name;
@@ -92,15 +89,15 @@ public:
 		return status;
 	}
 	//returns score data at index as string
-	string getScore(int index) {
+	std::string getScore(int index) {
 		Node* current = head;
-		string output;
+		std::string output;
 		for (int i = 0; i < index; i++) {
 			current = current->next;
 		}
 		output += current->name;
 		output += " ";
-		output += to_string(current->score);
+		output += std::to_string(current->score);
 		return output;
 	}
 
@@ -109,14 +106,15 @@ public:
 		Node* current = head;
 		int interval = 25, counter = 0; //for some reason this crashes when counter is initialized at 1
 		sf::Text highScores("High Scores:", font);
-		highScores.setPosition(width / 2, height / 2 - 25);
+		highScores.setPosition(WIDTH / 2, HEIGHT / 2 - 25);
 		highScores.setCharacterSize(25);
 		win->draw(highScores);
 
+		//create score linked list
 		while (current != nullptr) {
 			current->textScore.setString(getScore(counter));
 			current->textScore.setFont(font);
-			current->textScore.setPosition(width / 2, height / 2 + interval * counter);
+			current->textScore.setPosition(WIDTH / 2, HEIGHT / 2 + interval * counter);
 			current->textScore.setCharacterSize(25);
 
 			current->textScore.setOrigin(current->textScore.getLocalBounds().left / 2, current->textScore.getLocalBounds().top / 2);
@@ -137,23 +135,11 @@ public:
 				current = current->next;
 			}
 
-			free(current);
+			delete current;
 			prev->next = nullptr;
+			
+			count--;
 		}
-	}
-
-	//checks to see if high score was made
-	void checkHighScore(string name,int newScore) {
-		bool check = true;
-		Node* current = head;
-		while (current != nullptr && check) {
-			if (newScore >= current->score) {
-				insertNode(name, newScore);
-				check = false;
-			}
-			current = current->next;
-		}
-		checkSize();
 	}
 };
 #endif

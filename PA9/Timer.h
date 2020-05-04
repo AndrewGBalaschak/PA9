@@ -1,10 +1,7 @@
 #ifndef TIMER_H
 #define TIMER_H
 
-#include <iostream>
-#include <ctime>
-
-using namespace std;
+#include "libraries.h"
 
 class Timer { //timer must be called at beginning of game start
 protected:
@@ -21,50 +18,57 @@ protected:
 
 public:
 	Timer() { //default 3 minutes
-		minutes = 0;
-		seconds = 10;
+		minutes = 3;
+		seconds = 0;
 		count = 0;
 		time(&start);
 		timerStart = true;
 
-		if (!font.loadFromFile("Tuffy.otf")) cout << "ERROR";
 
+		if (!font.loadFromFile("Tuffy.otf")) std::cout << "ERROR";
+		
+		//the objects for time display
 		min = new sf::Text("3", font);
 		colon = new sf::Text(":", font);
 		sec = new sf::Text("0", font);
 		zero = new sf::Text("0", font);
 
-		min->setPosition(width - 80, 7);
+		min->setPosition(WIDTH - 80, 7);
 		min->setCharacterSize(30);
-		colon->setPosition(width - 60, 5);
+		colon->setPosition(WIDTH - 60, 5);
 		colon->setCharacterSize(30);
-		sec->setPosition(width - 45, 7);
+		sec->setPosition(WIDTH - 45, 7);
 		sec->setCharacterSize(30);
-		zero->setPosition(width - 45, 7);
+		zero->setPosition(WIDTH - 45, 7);
 		zero->setCharacterSize(30);
 		setTimerNum(3, 0);
 	}
 
+	//start is set after name is entered
 	void setStart() {
 		time(&start);
 		timerStart = true;
 	}
 
+	//get the time that the class set as start
 	bool getStart() {
 		return timerStart;
 	}
-	
+
+	//total number of seconds
 	void setTimerNum(int m, int s) {
 		timerNum = (m * 60) + s;
 	}
 
+	//countdown loop checks until one second has passed
 	bool countdown() {
 		time_t current;
 		time(&current);
 		if (minutes == 0 && seconds == 0) {
-			cout << "TIME IS UP!";
+			std::cout << "TIME IS UP!";
 			timerStart = false;
 		}
+		//if one second has passed, then one second decrement from the seconds and minutes variables
 		else if (current == start + count + 1) {
 			if (seconds == 0) {
 				seconds = 60;
@@ -77,24 +81,29 @@ public:
 		update();
 		return timerStart;
 	}
-	
+
+	//return the minutes and seconds
 	int getMin() {
 		return minutes;
 	}
 	int getSec() {
 		return seconds;
 	}
+
+	//change the minute and second displayed when a second passes
 	void update() {
-		min->setString(to_string(minutes));
-		sec->setString(to_string(seconds));
+		min->setString(std::to_string(minutes));
+		sec->setString(std::to_string(seconds));
 	}
+
+	//the timer is printed to the window in top right corner
 	void drawTimer(sf::RenderWindow* win) {
 		if (seconds < 10) {
 			win->draw(*zero);
-			sec->setPosition(width - 28, 7);
+			sec->setPosition(WIDTH - 28, 7);
 		}
 		else {
-			sec->setPosition(width - 45, 7);
+			sec->setPosition(WIDTH - 45, 7);
 		}
 		win->draw(*min);
 		win->draw(*colon);

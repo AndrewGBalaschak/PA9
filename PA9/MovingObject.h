@@ -1,10 +1,7 @@
 #ifndef MOVINGOBJECT_H
 #define MOVINGOBJECT_H
 
-#define PI 3.14159265358979323846
-
-#include <iostream>
-using namespace std;
+#include "libraries.h"
 
 class MovingObject {
 protected:
@@ -97,22 +94,25 @@ public:
 	}
 
 	virtual void updateSprite() = 0;
-	virtual void draw(sf::RenderWindow *) = 0;
-	virtual bool collides(MovingObject *) = 0;
-	virtual sf::FloatRect getBounds();
+	virtual void draw(sf::RenderWindow*) = 0;
+	virtual bool collides(MovingObject*) = 0;
+	sf::FloatRect getBounds() {
+		return sf::FloatRect(p.x, p.y, 0, 0);
+	};
 	virtual void collideResults() = 0;
 
 };
 
-void checkForCollisions(vector<MovingObject *> objs) {
-	for (int i = 0; i < objs.size()-1; i++) {
-		for (int j = i+1; j < objs.size(); j++) {
-			if (objs[i]->collides(objs[j])) {
-				objs[i]->collideResults();
-				objs[j]->collideResults();
-			}
-		}
-	}
-}
+//void checkForCollisions(std::vector<MovingObject*> &objs) {
+//	for (int i = 0; i < objs.size() - 1; i++) {
+//		for (int j = i+1; j < objs.size(); j++) {
+//			if (objs[i]->collides(objs[j])) {
+//				objs[i]->collideResults();
+//				objs[j]->collideResults();
+//			}
+//		}
+//	}
+//}
+
 
 #endif;
