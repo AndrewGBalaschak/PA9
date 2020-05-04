@@ -32,6 +32,7 @@ public:
 	static int screenDimensions[2]; //width (horizontal) and length (horizontal) of the drawing window 
 
 	Asteroid(); //default constructor
+	~Asteroid(); //destructor
 
 
 	void generateShape(void); //generates the ConvexShape used to represent the asteroid
