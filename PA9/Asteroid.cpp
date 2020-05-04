@@ -1,5 +1,6 @@
 #include "Asteroid.h"
 
+//static variables
 int Asteroid::pointsPerSide = 15;
 RenderWindow* Asteroid::window = nullptr;
 Texture* Asteroid::texture = nullptr;
@@ -15,7 +16,7 @@ Asteroid::~Asteroid()
 	delete yOffsets;
 }
 
-Asteroid::Asteroid()
+Asteroid::Asteroid() 
 {
 	generateSize();
 	generateVelocity();
@@ -26,16 +27,16 @@ Asteroid::Asteroid()
 	active = true;
 }
 
-void Asteroid::generateVelocity(void)
+void Asteroid::generateVelocity(void) 
 {
 	float xVelocity = 0.0;
 	float yVelocity = 0.0;
 
-	xVelocity = (getRandomIntOnRange(0, 1) ? 1 : -1) * getRandomIntOnRange(1, speedLimit);
-	yVelocity = (getRandomIntOnRange(0, 1) ? 1 : -1) * getRandomIntOnRange(1, speedLimit);
+	xVelocity = (getRandomIntOnRange(0, 1) ? 1 : -1) * getRandomIntOnRange(1, speedLimit); //assign random x velocity
+	yVelocity = (getRandomIntOnRange(0, 1) ? 1 : -1) * getRandomIntOnRange(1, speedLimit); //assign random y velocity
 
 
-	velocity = Vector2f(xVelocity, yVelocity);
+	velocity = Vector2f(xVelocity, yVelocity); //assign velocity member function to new velocity values
 }
 
 void Asteroid::generatePosition(void)
@@ -44,11 +45,11 @@ void Asteroid::generatePosition(void)
 	float yVelocity = 0.0;
 	bool xBias = false;
 
-	xBias = (bool)getRandomIntOnRange(0, 1);
+	xBias = (bool)getRandomIntOnRange(0, 1); //if this is true, then the asteroid will emerge from one of the two horizontal (left/right) sides of the screen; otherwise it will come from the two vertical ones (top/bottom)
 	xVelocity = velocity.x;
 	yVelocity = velocity.y;
 
-	if (xBias)
+	if (xBias) //if statements use the asteroid's velocity vector to determine where it should be placed
 	{
 		if (xVelocity < 0)
 		{
@@ -95,21 +96,8 @@ void Asteroid::generateSize(void)
 	float currentSize = 0.0;
 	for (int i = 0; i < 4; i++)
 	{
-		size[i] = getRandomIntOnRange(sizeMin, sizeMin+60);
+		size[i] = getRandomIntOnRange(sizeMin, sizeMin+60); //assign each of the four arm length members to random values
 	}
-}
-
-void printArray(int* arr, int n)
-{
-	int integer = 0;
-
-	//std::cout << "{ ";
-	for (int i = 0; i < n - 1; i++)
-	{
-		integer = arr[i];
-		//std::cout << integer << ", ";
-	}
-	//std::cout << arr[n - 1] << " }" << std::endl;
 }
 
 void Asteroid::generateShape()
@@ -119,15 +107,16 @@ void Asteroid::generateShape()
 
 
 
-	angularFrequency = getRandomFloatOnRange(0, angularFrequencyLimit);
+	angularFrequency = getRandomFloatOnRange(0, angularFrequencyLimit); //assign a random angular frequency
 
 	xPos = position.x;
 	yPos = position.y;
 
-
+	//configure asteroid ConvexShape object
 	asteroidShape.setPointCount(pointsPerSide * 4);
 	asteroidShape.setTexture(texture);
 	asteroidShape.setTextureRect(IntRect(100, 100, 1000, 1000));
+	
 	int* currentXPointArray = nullptr;
 	int* currentYPointArray = nullptr;
 	int* xPointArrays[4];
@@ -142,6 +131,7 @@ void Asteroid::generateShape()
 
 	int counter = 0;
 
+	//assign position of extreme points relative to center of asteroid
 	newExtremes[counter] = 0 - size[counter++];
 	newExtremes[counter] = 0 - size[counter++];
 	newExtremes[counter] = 0 + size[counter++];
@@ -151,6 +141,7 @@ void Asteroid::generateShape()
 
 	counter = 0;
 
+	//here, we have a total of 8 arrays used to represent the points that make up the asteroid - we have 2 arrays for each side, one for the x component and one for the y component of position
 	xPointArrays[counter++] = getRandomSequenceOnRange(0, newExtremes[1], pointsPerSide);
 	xPointArrays[counter++] = getRandomSequenceOnRange(newExtremes[1], 0, pointsPerSide);
 	xPointArrays[counter++] = getRandomSequenceOnRange(0, newExtremes[3], pointsPerSide);
@@ -178,7 +169,7 @@ void Asteroid::generateShape()
 
 
 
-	//population x and y coordinates
+	//populate x and y coordinates
 	for (int i = 0; i < 4; i++)
 	{
 		currentXPointArray = xPointArrays[i];
@@ -193,7 +184,8 @@ void Asteroid::generateShape()
 
 		}
 	}
-
+	
+	//calculate integral values for center of mass
 	for (int i = 0; i < pointsPerSide; i++)
 	{
 		x[i] = xPointArrays[1][i];
@@ -211,12 +203,13 @@ void Asteroid::generateShape()
 	}
 
 	int area = 0.0;
-
+	
+	//use leftRiemannSum function to approximate indefinite integral used to calculate center of mass
 	area = leftRiemannSum(x, f1x, pointsPerSide * 2);
 	centerOfMassX = (1 / (float)area) * (leftRiemannSum(x, f2x, pointsPerSide * 2));
 	centerOfMassY = (1 / (float)area) * (leftRiemannSum(x, f3x, pointsPerSide * 2));
 
-
+	//define the points of the asteroid using the 8 arrays containing the x/y values of all points 
 	for (int i = 0; i < 4; i++)
 	{
 		currentXPointArray = xPointArrays[i];
@@ -226,9 +219,11 @@ void Asteroid::generateShape()
 			asteroidShape.setPoint(j + (i * pointsPerSide), Vector2f(currentXPointArray[j] - centerOfMassX, currentYPointArray[j] - centerOfMassY));
 		}
 	}
-
+	
+	//set the position of the asteroid
 	asteroidShape.setPosition(xPos + centerOfMassX, yPos + centerOfMassY);
-
+	
+	//delete all dynamically allocated memory from heap (it's not needed anymore)
 	delete x;
 	delete f1x;
 	delete f2x; 
@@ -252,11 +247,11 @@ bool Asteroid::isOffScreen(void)
 	int currentXPosition = 0;
 	int currentYPosition = 0;
 
+	//get the asteroid's current position
 	currentXPosition = asteroidShape.getPosition().x;
 	currentYPosition = asteroidShape.getPosition().y;
-
-	//printArray(xOffsets, pointsPerSide * 4);
 	
+	//check if any of the extremes are offscreen
 	if (centerOfMassX < 0 || centerOfMassX > WIDTH || centerOfMassY < 0 || centerOfMassY > HEIGHT) {
 		for (int i = 0; i < 4 * pointsPerSide && offScreen; i++) {
 			currentXOffset = xOffsets[i];
@@ -277,17 +272,18 @@ bool Asteroid::isOffScreen(void)
 
 void Asteroid::move(void)
 {
-	asteroidShape.move(velocity);
-	asteroidShape.rotate(angularFrequency);
-	updateExtremes();
+	asteroidShape.move(velocity); //move the asteroid
+	asteroidShape.rotate(angularFrequency); //rotate the asteroid
+	updateExtremes(); //update the positions of the four extremes
 }
 
 void Asteroid::drawAsteroid(void)
 {
 	//std::cout << "WINDOW: " << window;
-	(*window).draw(asteroidShape);
+	(*window).draw(asteroidShape); //draw the asteroid using the provided window
 }
 
+//basic helper functions
 int getRandomIntOnRange(int min, int max)
 {
 	int randomInt = 0;
