@@ -61,7 +61,7 @@ public:
 
 	//increase score when destroy
 	void incrementScore(int addToScore) {
-		score = addToScore * 500;
+		score = addToScore * 50;
 	}
 
 	//takes user input for name
