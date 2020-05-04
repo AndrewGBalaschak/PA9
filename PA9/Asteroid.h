@@ -44,16 +44,15 @@ public:
 	
 	bool collides(MovingObject* movingObject) //redefined pure virtual function from MovingObject class
 	{
-		return b_collides(movingObject); // asteroids won't collide with other asteroids
+		return false;
 	}
 	
 	
 	void collideResults(void) //redefined pure virtual function
 	{
-		isDead();
 	}
 
-	bool b_collides(MovingObject* bulletObj) //returns true if asteroid has collided with the given bullet object, false otherwise
+	bool collides_(Projectile* bulletObj) //returns true if asteroid has collided with the given bullet object, false otherwise
 	{
 		
 		bool hasCollided = false; //boolean to return
@@ -65,11 +64,15 @@ public:
 
 		hasCollided = hasCollidedWithPosition(bulletX, bulletY); //use hasCollided function, which checks to see if the given position is within the rectangle of the asteroid
 		collidesBullet = hasCollided; //update the collidesBullet member boolean
+		if (hasCollided) {
+			bulletObj->isDead();
+			isDead();
+		}
 		std::cout << "COLLIDES BULLET: " << hasCollided << std::endl;
 		return hasCollided;
 	}
 
-	bool collides(Player* playerObj) //returns true if the asteroid has collided with the player, false otherwise
+	bool collides_(Player* playerObj) //returns true if the asteroid has collided with the player, false otherwise
 	{
 		bool hasCollided = false;
 		int playerX = 0;
@@ -80,6 +83,7 @@ public:
 
 		hasCollided = hasCollidedWithPosition(playerX, playerY);
 		collidesPlayer = hasCollided;
+		if (hasCollided) playerObj->isDead();
 		std::cout << "COLLIDES PLAYER: " << hasCollided << std::endl;
 		return hasCollided;
 	}
@@ -87,6 +91,10 @@ public:
 	void updateSprite(void) //redefined pure virtual function
 	{
 
+	}
+
+	sf::FloatRect getBounds() {
+		return asteroidShape.getGlobalBounds();
 	}
 
 	void draw(RenderWindow* renderWindow) //redefined pure virtual function
@@ -103,18 +111,19 @@ public:
 		asteroidX = asteroidShape.getPosition().x;
 		asteroidY = asteroidShape.getPosition().y;
 
-		for (int i = 0; i < 2; i++)
-		{
-			extremes[2 * i] = size[2 * i] + asteroidY - centerOfMassY;
-			extremes[2 * i + 1] = size[2 * i + 1] + asteroidX - centerOfMassX;
-		}
+		
+		extremes[0] = asteroidY + centerOfMassY + size[0];
+		extremes[1] = asteroidX - centerOfMassX - size[1];
+		extremes[2] = asteroidY - centerOfMassY - size[2];
+		extremes[3] = asteroidX + centerOfMassX + size[3];
+
 	}
 
 	bool hasCollidedWithPosition(int x, int y)
 	{
 		bool hasCollided = false;
 
-		hasCollided = x >= extremes[1] && x <= extremes[3] && y >= extremes[0] && y <= extremes[2];
+		hasCollided = x >= extremes[1] && x <= extremes[3] && y <= extremes[0] && y >= extremes[2];
 
 		return hasCollided;
 
@@ -146,5 +155,5 @@ float getRandomFloatOnRange(int, int);
 float getCenter(float, float);
 int leftRiemannSum(int*, int*, int);
 void printArray(int*, int);
-void checkForCollisions(std::vector<MovingObject *> &objs);
+
 #endif

@@ -88,7 +88,7 @@ void Asteroid::generateSize(void)
 	float currentSize = 0.0;
 	for (int i = 0; i < 4; i++)
 	{
-		size[i] = getRandomIntOnRange(0, sizeLimit);
+		size[i] = getRandomIntOnRange(10, sizeLimit);
 	}
 }
 
@@ -428,13 +428,3 @@ int leftRiemannSum(int* x, int* fx, int n)
 	return riemannSum;
 }
 
-void checkForCollisions(std::vector<MovingObject *> &objs) {
-	for (int i = 0; i < objs.size() - 1; i++) {
-		for (int j = i+1; j < objs.size(); j++) {
-			if (objs[i]->collides(objs[j])) {
-				objs[i]->collideResults();
-				objs[j]->collideResults();
-			}
-		}
-	}
-}

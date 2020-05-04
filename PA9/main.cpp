@@ -14,9 +14,8 @@ Description:
 int main(void)
 {
 	// objects array
-	std::vector<MovingObject *> objs;
+	std::vector<Projectile *> bullets;
 	Player player(WIDTH / 2, HEIGHT / 2);
-	objs.push_back(&player);
 	player.setName();
 
 	srand(time(NULL));
@@ -73,33 +72,33 @@ int main(void)
 		else if (Keyboard::isKeyPressed(Keyboard::Down)) player.accelerateReverse();
 
 		//shooting
-		if (Keyboard::isKeyPressed(Keyboard::Space) && j > 15) {
+		if (Keyboard::isKeyPressed(Keyboard::Space) && j > 2) {
 			j = 0;
-			objs.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
+			bullets.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
 		}
 		//update objects coordinates
-		for (int i = 0; i < objs.size(); i++) {
+		for (int i = 0; i < bullets.size(); i++) {
 			//std::cout << "Update " << i;
-			objs[i]->updatePosition();
-			if (!objs[i]->getActive()) {
-				delete objs[i];
-				objs.erase(objs.begin() + i);
+			bullets[i]->updatePosition();
+			if (!bullets[i]->getActive()) {
+				delete bullets[i];
+				bullets.erase(bullets.begin() + i);
 			}
 		}
-		
-		checkForCollisions(objs);
+		player.updatePosition();
+
+		asteroidsArray.checkForCollisions(bullets, player);
 
 		i++; j++;
 		window.clear();
 		//display game
-		if (contGame) {
-			std::cout << i << std::endl;
-			if (i % 60 == 0)
-			{
-				objs.push_back(asteroidsArray.spawnAsteroid());
+		if (contGame && player.getActive()) {
+			if (i % 60 == 0) {
+				asteroidsArray.spawnAsteroid();
 			}
-			for (int i = 0; i < objs.size(); i++)
-				objs[i]->draw(&window);
+			for (int i = 0; i < bullets.size(); i++)
+				bullets[i]->draw(&window);
+			player.draw(&window);
 			asteroidsArray.drawAsteroids();
 			T.drawTimer(&window);
 			playerStats.drawStats(&window);
@@ -112,7 +111,6 @@ int main(void)
 		}
 
 		window.display();
-		i++;
 	}
 	return 0;
 }

@@ -20,7 +20,6 @@ protected:
 	Scalar s;
 	sf::Sprite* playerSprite;
 	sf::Texture* playerTexture;
-	sf::RectangleShape* r1, * r2, * r3;
 
 
 public:
@@ -29,7 +28,7 @@ public:
 		fuel = 500;
 		fuelConsumptionRate = 1;
 		moveSpeed = .1;
-		rotateSpeed = .05;
+		rotateSpeed = .1;
 		maxVelocity = 5;
 		rotation = PI / 2;//player is facing straight
 		p.x = x;
@@ -47,14 +46,6 @@ public:
 		playerSprite->setTexture(*playerTexture);
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setOrigin(16, 16);
-
-		//loading collision boxes
-		r1 = new sf::RectangleShape(sf::Vector2f(32, 2));
-		r1->setOrigin(sf::Vector2f(18, 5));
-		r2 = new sf::RectangleShape(sf::Vector2f(32, 2));
-		r2->setOrigin(sf::Vector2f(18, -3));
-		r3 = new sf::RectangleShape(sf::Vector2f(15, 2));
-		r3->setOrigin(sf::Vector2f(7, -13));
 
 	}
 
@@ -169,12 +160,6 @@ public:
 	void updateSprite() {
 		playerSprite->setPosition(p.x, p.y);
 		playerSprite->setRotation(90 - getRotationDegrees());
-		r1->setPosition(p.x, p.y);
-		r1->setRotation(15 - getRotationDegrees());
-		r2->setPosition(p.x, p.y);
-		r2->setRotation(342 - getRotationDegrees());
-		r3->setPosition(p.x, p.y);
-		r3->setRotation(90 - getRotationDegrees());
 		//std::cout << getRotationDegrees() << std::endl;
 	}
 
@@ -185,20 +170,20 @@ public:
 
 	//checks if obj has collided with anything
 	bool collides(MovingObject* obj) {
-		if (r1->getGlobalBounds().intersects(obj->getBounds()))
-			return true;
-		if (r2->getGlobalBounds().intersects(obj->getBounds()))
-			return true;
-		if (r3->getGlobalBounds().intersects(obj->getBounds()))
-			return true;
+		
 		return false;
+	}
+
+	sf::FloatRect getBounds() {
+		return playerSprite->getGlobalBounds();
 	}
 
 	//called when collides
 	void collideResults() {
 		active = false;
 		delete playerSprite, playerTexture;
-		delete r1, r2, r3;
 	}
+
+	void isDead() { active = false; }
 };
 #endif;

@@ -24,6 +24,6 @@ public:
 	{
 		return asteroidsDestroyed;
 	}
-
+	void checkForCollisions(std::vector<Projectile *> &objs, Player &p);
 };
 #endif

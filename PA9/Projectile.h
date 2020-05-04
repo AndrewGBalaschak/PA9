@@ -25,8 +25,8 @@ public:
 		p.x = playerX;
 		p.y = playerY;
 		rotation = deg;
-		v.x = 8 * cos(deg);
-		v.y = 8 * sin(deg);
+		v.x = 15 * cos(deg);
+		v.y = 15 * sin(deg);
 	}
 
 	//basically move the projectile object in a straight line and then stop when its off window
@@ -80,6 +80,7 @@ public:
 	void collideResults() {
 		active = false;
 	}
+	void isDead() { active = false; }
 };
 
 #endif // !PROJECTILE_H
