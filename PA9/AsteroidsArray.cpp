@@ -22,7 +22,6 @@ void AsteroidsArray::drawAsteroids(void)
 			else if (currentAsteroid->getCollidesPlayer() == true)
 			{
 				gameOver = true;
-				asteroidsDestroyed++;
 				currentAsteroid->isDead();
 				destroyedAsteroids[i] = true;
 			}
@@ -40,6 +39,7 @@ void AsteroidsArray::drawAsteroids(void)
 				if (currentAsteroid->getActive())
 					currentAsteroid->drawAsteroid();
 				else {
+					asteroidsDestroyed++;
 					destroyedAsteroids[i] = true;
 					delete currentAsteroid;
 				}

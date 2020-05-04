@@ -30,6 +30,7 @@ int main(void)
 	highscore.readScores();
 
 	Stats playerStats;
+	int asteroidsDestroyed = 0;
 
 	sf::Font font;
 	if (!font.loadFromFile("Tuffy.otf")) std::cout << "ERROR";
@@ -72,7 +73,7 @@ int main(void)
 		else if (Keyboard::isKeyPressed(Keyboard::Down)) player.accelerateReverse();
 
 		//shooting
-		if (Keyboard::isKeyPressed(Keyboard::Space) && j > 2) {
+		if (Keyboard::isKeyPressed(Keyboard::Space) && j > 15) {
 			j = 0;
 			bullets.push_back(new Projectile(player.getX(), player.getY(), player.getRotation()));
 		}
@@ -88,11 +89,14 @@ int main(void)
 		player.updatePosition();
 
 		asteroidsArray.checkForCollisions(bullets, player);
+		asteroidsDestroyed = asteroidsArray.getAsteroidsDestroyed();
 
 		i++; j++;
 		window.clear();
 		//display game
 		if (contGame && player.getActive()) {
+			player.incrementScore(asteroidsDestroyed);
+
 			if (i % 60 == 0) {
 				asteroidsArray.spawnAsteroid();
 			}

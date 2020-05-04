@@ -24,7 +24,7 @@ protected:
 
 public:
 	Player(int x, int y) {
-		score = 500;
+		score = 0;
 		fuel = 500;
 		fuelConsumptionRate = 1;
 		moveSpeed = .1;
