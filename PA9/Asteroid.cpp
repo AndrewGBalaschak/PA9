@@ -8,6 +8,12 @@ int Asteroid::speedLimit = 2;
 int Asteroid::sizeLimit = 50;
 int Asteroid::screenDimensions[2] = { WIDTH, HEIGHT };
 
+Asteroid::~Asteroid()
+{
+	delete xOffsets;
+	delete yOffsets;
+}
+
 Asteroid::Asteroid()
 {
 	generateSize();
@@ -271,7 +277,6 @@ void Asteroid::move(void)
 
 void Asteroid::drawAsteroid(void)
 {
-	std::cout << "WINDOW: " << window;
 	(*window).draw(asteroidShape);
 }
 

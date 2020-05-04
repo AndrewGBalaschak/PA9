@@ -31,8 +31,10 @@ public:
 	static int sizeLimit; //maximum length of the each of the four arms (again arm lengths are randomly assigned on [sizeLimit / 2, sizeLimit])
 	static int screenDimensions[2]; //width (horizontal) and length (horizontal) of the drawing window 
 
-	Asteroid(); //default constructor
+	static int sizeMin;
 
+	Asteroid(); //default constructor
+	~Asteroid(); //destructor
 
 	void generateShape(void); //generates the ConvexShape used to represent the asteroid
 	void move(void); //moves the asteroid according to its velocity vector and angular frequency
@@ -142,7 +144,12 @@ public:
 	}
 	
 	void updatePosition(void) {}
-	void isDead() { active = false; }
+
+	void isDead() { 
+		active = false;
+		if (sizeMin < sizeLimit)
+			sizeMin += 5;
+	}
 };
 
 int getRandomIntOnRange(int, int);

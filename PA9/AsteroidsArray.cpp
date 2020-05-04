@@ -9,7 +9,9 @@ void AsteroidsArray::drawAsteroids(void)
 	{
 		currentAsteroid = asteroidsArray[i];
 		currentDestroyed = destroyedAsteroids[i];
+
 		std::cout << "DESTROYED: " << currentAsteroid << ", " << i << ", " << currentDestroyed << std::endl;
+
 		if (currentDestroyed == false)
 		{
 			if (currentAsteroid->isOffScreen() == true)
@@ -76,7 +78,7 @@ void AsteroidsArray::checkForCollisions(std::vector<Projectile *> &objs, Player 
 	for (int i = 0; i < numAsteroids; i++) {
 		currentAsteroid = asteroidsArray[i];
 		currentDestroyed = destroyedAsteroids[i];
-		std::cout << "DESTROYED: " << currentAsteroid << ", " << i << ", " << currentDestroyed << std::endl;
+
 		if (currentDestroyed == false) {
 			currentAsteroid->collides_(&p);
 			for (int i = 0; i < objs.size(); i++) {

@@ -141,5 +141,5 @@ public:
 			count--;
 		}
 	}
-};
+
 #endif
