@@ -135,7 +135,7 @@ public:
 				current = current->next;
 			}
 
-			free(current);
+			delete current;
 			prev->next = nullptr;
 		}
 	}
