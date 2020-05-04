@@ -283,7 +283,7 @@ void Asteroid::move(void)
 
 void Asteroid::drawAsteroid(void)
 {
-	std::cout << "WINDOW: " << window;
+	//std::cout << "WINDOW: " << window;
 	(*window).draw(asteroidShape);
 }
 
