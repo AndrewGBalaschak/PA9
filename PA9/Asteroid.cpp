@@ -233,12 +233,6 @@ void Asteroid::generateShape()
 	delete f1x;
 	delete f2x; 
 	delete f3x;
-	
-	for(int i = 0; i < 4; i++)
-	{
-		delete xPointArrays[i];
-		delete yPointArrays[i];
-	}
 }
 
 bool Asteroid::isOffScreen(void)
@@ -284,7 +278,6 @@ void Asteroid::move(void)
 
 void Asteroid::drawAsteroid(void)
 {
-	//std::cout << "WINDOW: " << window;
 	(*window).draw(asteroidShape);
 }
 

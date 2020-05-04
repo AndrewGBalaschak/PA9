@@ -24,12 +24,8 @@ public:
 		time(&start);
 		timerStart = true;
 
+		if (!font.loadFromFile("Tuffy.otf")) std::cout << "ERROR";
 
-		if (!font.loadFromFile("Tuffy.otf")) 
-		{
-			//std::cout << "ERROR";
-		}
-		
 		//the objects for time display
 		min = new sf::Text("3", font);
 		colon = new sf::Text(":", font);
@@ -68,7 +64,8 @@ public:
 		time_t current;
 		time(&current);
 		if (minutes == 0 && seconds == 0) {
-			//std::cout << "TIME IS UP!";
+			std::cout << "TIME IS UP!";
+
 			timerStart = false;
 		}
 		//if one second has passed, then one second decrement from the seconds and minutes variables
